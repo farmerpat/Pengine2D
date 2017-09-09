@@ -12,6 +12,8 @@
 // we really don't want to be including these all over the place.
 // find out if they each need their own ifndef as well
 #include <stdio.h>
+#include <string>
+#include <vector>
 #include <SDL2/sdl.h>
 #include <SDL2_image/SDL_image.h>
 #include <SDL2_mixer/SDL_mixer.h>
@@ -22,9 +24,14 @@ namespace PScene {
     public:
         Scene();
         ~Scene();
+        void addGameObject(PGameObject::GameObject);
+        PGameObject::GameObject *getGameObjectByName(std::string);
+        void destroy(void);
 
     private:
         bool _initialized = false;
+        std::vector<PGameObject::GameObject> _gameObjects;
+        SDL_Surface *_surface = NULL;
 
     };
 }

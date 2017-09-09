@@ -44,11 +44,19 @@ namespace PGame {
         }
     }
 
+    int Game::getScreenWidth (void) {
+        return this->_SCREEN_WIDTH;
+    }
+
     void Game::setScreenHeight (int h) {
         if (!this->_initializationComplete) {
             this->_SCREEN_HEIGHT = h;
 
         }
+    }
+
+    int Game::getScreenHeight (void) {
+        return this->_SCREEN_HEIGHT;
     }
 
     void Game::setBackgroundColor (SDL_Color color) {
@@ -68,6 +76,10 @@ namespace PGame {
 
     bool Game::getInitializationSucceeded (void) {
         return this->_initializationSucceeded;
+    }
+
+    SDL_Renderer *Game::getWindowRenderer (void) {
+        return this->_windowRenderer;
     }
 
     void Game::addScene (PScene::Scene s) {

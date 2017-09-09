@@ -27,8 +27,10 @@ namespace PGameObject {
         GameObject();
         ~GameObject();
 
-        std::string getTag();
+        std::string getTag(void);
         void setTag(std::string);
+        std::string getName(void);
+        void setName(std::string);
 
         PVector2D::Vector2D<int> getPos();
         void setPos(PVector2D::Vector2D<int>);
@@ -39,6 +41,7 @@ namespace PGameObject {
 
     private:
         std::string _tag = "";
+        std::string _name = "";
         //template PVector2D::Vector2D<class T> _position;
         //PVector2D::Vector2D _position;
         //PVector2D::Vector2D<class T> _position;

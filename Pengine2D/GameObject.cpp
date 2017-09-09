@@ -21,6 +21,14 @@ namespace  PGameObject {
         this->_tag = newTag;
     }
 
+    std::string GameObject::getName (void) {
+        return this->_name;
+    }
+
+    void GameObject::setName (std::string newName) {
+        this->_name = newName;
+    }
+
     PVector2D::Vector2D<int> GameObject::getPos () {
         return this->_int_position;
     }

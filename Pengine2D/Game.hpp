@@ -25,13 +25,16 @@ namespace PGame {
         Game(std::string, std::vector<PScene::Scene>);
         ~Game();
         void setScreenWidth(int);
+        int getScreenWidth(void);
         void setScreenHeight(int);
+        int getScreenHeight(void);
         void setBackgroundColor(SDL_Color);
         void setTitle(std::string);
+        std::string getTitle(void);
+        SDL_Renderer *getWindowRenderer(void);
         void addScene(PScene::Scene);
         void addScene(PScene::Scene, int);
         bool init(void);
-        std::string getTitle(void);
         bool getInitializationComplete(void);
         bool getInitializationSucceeded(void);
         void destroy(void);
