@@ -1,0 +1,31 @@
+//
+//  Scene.hpp
+//  Pengine2D
+//
+//  Created by Patrick Connelly on 9/8/17.
+//  Copyright © 2017 Patrick Connelly. All rights reserved.
+//
+
+#ifndef Scene_hpp
+#define Scene_hpp
+
+// we really don't want to be including these all over the place.
+// find out if they each need their own ifndef as well
+#include <stdio.h>
+#include <SDL2/sdl.h>
+#include <SDL2_image/SDL_image.h>
+#include <SDL2_mixer/SDL_mixer.h>
+#include "GameObject.hpp"
+
+namespace PScene {
+    class Scene {
+    public:
+        Scene();
+        ~Scene();
+
+    private:
+        bool _initialized = false;
+
+    };
+}
+#endif /* Scene_hpp */
