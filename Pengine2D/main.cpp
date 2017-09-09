@@ -12,6 +12,7 @@
 #include "Texture.hpp"
 #include "GameObject.hpp"
 #include "Game.hpp"
+#include "ExampleScene.hpp"
 
 using namespace PGame;
 
@@ -34,29 +35,14 @@ int main(int argc, const char * argv[]) {
     if (g.init()) {
         //g.loadScene(g.getActiveScene());
         //g.launchActiveSceneInGameLoop();
-        // or g.launchGameLoop();
+        // or g.launchActiveSceneGameLoop();
+        // if (g.changeScene())...
         // the game should have a GameManager member
         // that deals with changing scenes at the appropriate time,
         // updating UI, etc
 
-        PTexture::Texture tx = PTexture::Texture();
-        tx.setTargetRenderer(g.getWindowRenderer());
-
-        if (tx.loadFromFile("test_img/slug_right.png")) {
-            printf("loaded sluggo\n");
-
-            // make these methods
-            SDL_SetRenderDrawColor(g.getWindowRenderer(), 0xff, 0xff, 0xff, 0xff);
-            SDL_RenderClear(g.getWindowRenderer());
-
-            tx.render(g.getScreenWidth()/2, g.getScreenHeight()/2);
-
-            // make this a method
-            SDL_RenderPresent(g.getWindowRenderer());
-        } else {
-            printf("could not load sluggo\n");
-
-        }
+        PGame::ExampleScene scene = PGame::ExampleScene(&g);
+        scene.init();
 
         SDL_Delay(10000);
         g.destroy();
@@ -74,6 +60,6 @@ int main(int argc, const char * argv[]) {
     }
      */
 
-    // cleanUp();
+    // g.cleanUp();
     return 0;
 }

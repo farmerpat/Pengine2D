@@ -7,6 +7,7 @@
 //
 
 #include "Game.hpp"
+#include "Scene.hpp"
 
 namespace PGame {
     Game::Game () {}
@@ -14,14 +15,14 @@ namespace PGame {
         this->_title = title;
     }
 
-    Game::Game (std::string title, std::vector<PScene::Scene> scenes) {
+    Game::Game (std::string title, std::vector<Scene*> scenes) {
         this->_title = title;
         this->_scenes = scenes;
         this->_numScenes = this->_scenes.size();
 
         if (this->_numScenes > 0) {
             this->_activeSceneNumber = 0;
-            this->_activeScene = &this->_scenes.at(this->_activeSceneNumber);
+            this->_activeScene = this->_scenes.at(this->_activeSceneNumber);
 
         }
     }
@@ -82,11 +83,11 @@ namespace PGame {
         return this->_windowRenderer;
     }
 
-    void Game::addScene (PScene::Scene s) {
+    void Game::addScene (Scene *s) {
         this->_scenes.push_back(s);
     }
 
-    void Game::addScene(PScene::Scene s, int ind) {
+    void Game::addScene(Scene *s, int ind) {
         if (ind <= this->_scenes.size()) {
             this->_scenes.insert(this->_scenes.begin()+ind, s);
 

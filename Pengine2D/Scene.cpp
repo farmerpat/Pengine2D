@@ -7,9 +7,14 @@
 //
 
 #include "Scene.hpp"
+#include "Game.hpp"
 
-namespace  PScene {
+namespace  PGame {
     Scene::Scene () {}
+
+    Scene::Scene (Game *g) {
+        this->_parentGame = g;
+    }
 
     Scene::~Scene () {
         this->destroy();
