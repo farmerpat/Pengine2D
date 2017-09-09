@@ -25,6 +25,7 @@ namespace PGameObject {
     class GameObject {
     public:
         GameObject();
+        GameObject(std::string);
         ~GameObject();
 
         std::string getTag(void);
