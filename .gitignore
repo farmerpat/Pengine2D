@@ -1,5 +1,8 @@
 .DS_Store
 
+#xcode
+xcuserdata/
+
 # Prerequisites
 *.d
 
