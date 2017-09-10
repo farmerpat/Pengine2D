@@ -17,15 +17,17 @@
 #include <SDL2/sdl.h>
 #include <SDL2_image/SDL_image.h>
 #include <SDL2_mixer/SDL_mixer.h>
+#include "Scene.hpp"
 #include "Vector2D.hpp"
 
-namespace PGameObject {
-    // this will mostly be extended by other classes
-    // for use within a scene
+namespace PGame {
+    class Scene;
+
     class GameObject {
     public:
         GameObject();
         GameObject(std::string);
+        GameObject (std::string, Scene);
         ~GameObject();
 
         std::string getTag(void);
@@ -36,18 +38,15 @@ namespace PGameObject {
         PVector2D::Vector2D<int> getPos();
         void setPos(PVector2D::Vector2D<int>);
         void setXPos(int x);
-        //void setXPos(float x);
         void setYPos(int y);
-        //void setYPos(float y);
+
+        Scene *getParentScene(void);
 
     private:
         std::string _tag = "";
         std::string _name = "";
-        //template PVector2D::Vector2D<class T> _position;
-        //PVector2D::Vector2D _position;
-        //PVector2D::Vector2D<class T> _position;
         PVector2D::Vector2D<int> _int_position = PVector2D::Vector2D<int>(0,0);
-        //PVector2D::Vector2D<float> _float_position;
+        Scene *_parentScene;
 
     };
 }

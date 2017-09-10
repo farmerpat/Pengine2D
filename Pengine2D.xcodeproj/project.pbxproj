@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E43B505A1F64DBD600F00006 /* Sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E43B50581F64DBD600F00006 /* Sprite.cpp */; };
 		E44D27991F631CE900C269E0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E44D27981F631CE900C269E0 /* main.cpp */; };
 		E44D27A11F631CFD00C269E0 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E44D27A01F631CFD00C269E0 /* SDL2.framework */; };
 		E44D27A31F631CFF00C269E0 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E44D27A21F631CFF00C269E0 /* SDL2_image.framework */; };
@@ -31,6 +32,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E43B50581F64DBD600F00006 /* Sprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sprite.cpp; sourceTree = "<group>"; };
+		E43B50591F64DBD600F00006 /* Sprite.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Sprite.hpp; sourceTree = "<group>"; };
 		E44D27951F631CE900C269E0 /* Pengine2D */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Pengine2D; sourceTree = BUILT_PRODUCTS_DIR; };
 		E44D27981F631CE900C269E0 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		E44D27A01F631CFD00C269E0 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
@@ -94,6 +97,8 @@
 				E46C00B71F63D50D00706934 /* Texture.hpp */,
 				E44D27AC1F63225600C269E0 /* GameObject.cpp */,
 				E44D27AD1F63225600C269E0 /* GameObject.hpp */,
+				E43B50581F64DBD600F00006 /* Sprite.cpp */,
+				E43B50591F64DBD600F00006 /* Sprite.hpp */,
 				E44D27B01F63238600C269E0 /* Vector2D.hpp */,
 				E46FEF211F646B72009547D9 /* ExampleScene.cpp */,
 				E46FEF221F646B72009547D9 /* ExampleScene.hpp */,
@@ -173,6 +178,7 @@
 				E44D27AB1F6321D300C269E0 /* Scene.cpp in Sources */,
 				E46FEF231F646B72009547D9 /* ExampleScene.cpp in Sources */,
 				E44D27991F631CE900C269E0 /* main.cpp in Sources */,
+				E43B505A1F64DBD600F00006 /* Sprite.cpp in Sources */,
 				E44D27A81F631E7E00C269E0 /* Game.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

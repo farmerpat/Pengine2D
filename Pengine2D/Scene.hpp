@@ -21,20 +21,22 @@
 
 namespace PGame {
     class Game;
+    class GameObject;
 
     class Scene {
     public:
         Scene();
         Scene(Game*);
         ~Scene();
-        void addGameObject(PGameObject::GameObject);
-        PGameObject::GameObject *getGameObjectByName(std::string);
+        void addGameObject(GameObject);
+        GameObject *getGameObjectByName(std::string);
+        Game *getParentGame(void);
         void destroy(void);
         virtual void init(void) = 0;
 
     protected:
         bool _initialized = false;
-        std::vector<PGameObject::GameObject> _gameObjects;
+        std::vector<GameObject> _gameObjects;
         SDL_Surface *_surface = NULL;
         Game *_parentGame = NULL;
 

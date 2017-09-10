@@ -8,7 +8,7 @@
 
 #include "GameObject.hpp"
 
-namespace  PGameObject {
+namespace  PGame {
     GameObject::GameObject () {
         this->_int_position = PVector2D::Vector2D<int>(0,0);
     }
@@ -16,7 +16,12 @@ namespace  PGameObject {
     GameObject::GameObject (std::string name) {
         this->_int_position = PVector2D::Vector2D<int>(0,0);
         this->_name = name;
+    }
 
+    GameObject::GameObject (std::string name, PGame::Scene scene) {
+        this->_int_position = PVector2D::Vector2D<int>(0,0);
+        this->_name = name;
+        this->_parentScene = &scene;
     }
 
     std::string GameObject::getTag () {
@@ -63,6 +68,10 @@ namespace  PGameObject {
     //void GameObject::setYPos (float y) {
 
     //}
+
+    PGame::Scene *GameObject::getParentScene (void) {
+        return this->_parentScene;
+    }
 
     GameObject::~GameObject () {}
 }

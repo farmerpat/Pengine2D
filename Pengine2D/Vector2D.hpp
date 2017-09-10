@@ -12,19 +12,6 @@
 #include <string>
 
 namespace PVector2D {
-    /*
-     * Example usage:
-     *
-     * Vector2D<int> myVect (2,3);
-     * printf("x: %d\n", myVect.getX());
-     * printf("y: %d\n", myVect.getY());
-     *
-     * Vector2D<float> myOtherVect (2.4, 3.3);
-     * printf("x: %f\n", myOtherVect.getX());
-     * printf("y: %f\n", myOtherVect.getY());
-     *
-     */
-
     template <class T>
     class Vector2D {
     public:

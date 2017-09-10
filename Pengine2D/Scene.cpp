@@ -20,14 +20,18 @@ namespace  PGame {
         this->destroy();
     }
 
-    void Scene::addGameObject (PGameObject::GameObject go) {
+    void Scene::addGameObject (GameObject go) {
         this->_gameObjects.push_back(go);
     }
 
-    PGameObject::GameObject *Scene::getGameObjectByName (std::string name) {
-        PGameObject::GameObject *go = NULL;
+    Game *Scene::getParentGame (void) {
+        return this->_parentGame;
+    }
 
-        for (std::vector<PGameObject::GameObject>::size_type i = 0; i < this->_gameObjects.size(); i++) {
+    GameObject *Scene::getGameObjectByName (std::string name) {
+        GameObject *go = NULL;
+
+        for (std::vector<GameObject>::size_type i = 0; i < this->_gameObjects.size(); i++) {
             if (this->_gameObjects[i].getName() == name) {
                 go = &this->_gameObjects[i];
                 break;

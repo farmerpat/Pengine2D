@@ -26,6 +26,11 @@ namespace PTexture {
         
         void setTargetRenderer(SDL_Renderer *);
         SDL_Renderer *getTargetRenderer();
+        // make _texturePath a privat member.
+        // add constructors for the texture path
+        // and for the target renderer
+        // overload this to take no arguments
+        // or the target render and the path as arguments
         bool loadFromFile(std::string path);
         void free();
 

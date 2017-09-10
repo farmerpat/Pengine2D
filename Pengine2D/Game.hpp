@@ -24,6 +24,7 @@ namespace PGame {
         Game(std::string);
         Game(std::string, std::vector<Scene*>);
         ~Game();
+
         void setScreenWidth(int);
         int getScreenWidth(void);
         void setScreenHeight(int);
@@ -34,6 +35,7 @@ namespace PGame {
         SDL_Renderer *getWindowRenderer(void);
         void addScene(Scene*);
         void addScene(Scene*, int);
+
         bool init(void);
         bool getInitializationComplete(void);
         bool getInitializationSucceeded(void);
@@ -47,7 +49,6 @@ namespace PGame {
         SDL_Renderer *_windowRenderer = NULL;
         SDL_Color _bgColor;
 
-        // a collection of scenes
         std::vector<Scene*> _scenes;
         unsigned long _numScenes = 0;
         bool _initializationComplete = false;
