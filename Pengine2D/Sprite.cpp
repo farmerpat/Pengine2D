@@ -66,6 +66,7 @@ namespace PGame {
     }
 
     void Sprite::inputController (SDL_Event e) {
+        // this should only be on the player sprite!
         // maybe seems like a Movable descendant of a GameObject should exist.
         // Sprite would be a descendent of that
         float newX = 0.0;
