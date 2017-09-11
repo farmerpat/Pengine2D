@@ -15,6 +15,11 @@ namespace PVector2D {
     template <class T>
     class Vector2D {
     public:
+        Vector2D () {
+            this->_the_vector[0] = 0;
+            this->_the_vector[1] = 0;
+        }
+
         Vector2D (T x, T y) {
             this->_the_vector[0] = x;
             this->_the_vector[1] = y;

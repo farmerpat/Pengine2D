@@ -35,6 +35,7 @@ namespace PGame {
         PVector2D::Vector2D<int> _velocity = PVector2D::Vector2D<int>(0,0);
         std::string _texture_png_path = "";
         PTexture::Texture _texture;
+        int _speed = 2;
         // add a hash table of animations at some point
 
     };

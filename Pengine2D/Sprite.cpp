@@ -68,7 +68,40 @@ namespace PGame {
     }
 
     void Sprite::inputController (SDL_Event e) {
-        printf ("das input, <3 Sprite\n");
+        //PVector2D::Vector2D<int> vel = PVector2D::Vector2D<int>();
+        // seems like a Movable descendant of a GameObject should exist.
+        // Sprite would be a descendent of that
+        PVector2D::Vector2D<int> newPos = this->getPos();
 
+        //printf ("das input, <3 Sprite\n");
+        switch (e.key.keysym.sym) {
+            case SDLK_w:
+                // move up
+                //vel.setY(-1);
+                printf("move up\n");
+                newPos.setY(newPos.getY() - this->_speed);
+                break;
+            case SDLK_a:
+                // move left
+                //vel.setX(-1);
+                printf("move left\n");
+                newPos.setX(newPos.getX() - this->_speed);
+                break;
+            case SDLK_s:
+                // move down
+                //vel.setY(1);
+                printf("move down\n");
+                newPos.setY(newPos.getY() + this->_speed);
+                break;
+            case SDLK_d:
+                // move right
+                //vel.setX(1);
+                printf("move right\n");
+                newPos.setX(newPos.getX() + this->_speed);
+                break;
+
+        }
+
+        this->setPos(newPos);
     }
 }
