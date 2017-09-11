@@ -28,7 +28,7 @@ namespace PGame {
         Scene();
         Scene(Game*);
         ~Scene();
-        void addGameObject(GameObject);
+        void addGameObject(GameObject*);
         GameObject *getGameObjectByName(std::string);
         Game *getParentGame(void);
         void destroy(void);
@@ -61,7 +61,7 @@ namespace PGame {
         // basically, if we push a dervied class onto the vector, only
         // the GameObject portion of the object is saved.
         // must use smart pointers
-        std::vector<GameObject> _gameObjects;
+        std::vector<GameObject*> _gameObjects;
         //std::vector<std::unique_ptr<GameObject>> _gameObjects;
         SDL_Surface *_surface = NULL;
         Game *_parentGame = NULL;

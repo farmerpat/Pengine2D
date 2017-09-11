@@ -20,7 +20,7 @@ namespace  PGame {
         this->destroy();
     }
 
-    void Scene::addGameObject (GameObject go) {
+    void Scene::addGameObject (GameObject *go) {
         this->_gameObjects.push_back(go);
     }
 
@@ -32,8 +32,8 @@ namespace  PGame {
         GameObject *go = NULL;
 
         for (std::vector<GameObject>::size_type i = 0; i < this->_gameObjects.size(); i++) {
-            if (this->_gameObjects[i].getName() == name) {
-                go = &this->_gameObjects[i];
+            if (this->_gameObjects[i]->getName() == name) {
+                go = this->_gameObjects[i];
                 break;
 
             }
@@ -44,7 +44,7 @@ namespace  PGame {
 
     void Scene::inputController (SDL_Event e) {
         for (std::vector<GameObject>::size_type i = 0; i < this->_gameObjects.size(); i++) {
-            this->_gameObjects[i].inputController(e);
+            this->_gameObjects[i]->inputController(e);
 
         }
     }
@@ -55,8 +55,8 @@ namespace  PGame {
         SDL_RenderClear(this->_parentGame->getWindowRenderer());
 
         for (std::vector<GameObject>::size_type i = 0; i < this->_gameObjects.size(); i++) {
-            if (this->_gameObjects[i].isRenderable()) {
-                this->_gameObjects[i].render();
+            if (this->_gameObjects[i]->isRenderable()) {
+                this->_gameObjects[i]->render();
 
             }
         }
