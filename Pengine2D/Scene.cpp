@@ -42,6 +42,28 @@ namespace  PGame {
         return go;
     }
 
+    void Scene::inputController (SDL_Event e) {
+        for (std::vector<GameObject>::size_type i = 0; i < this->_gameObjects.size(); i++) {
+            this->_gameObjects[i].inputController(e);
+
+        }
+    }
+
+    void Scene::render (void) {
+        // allow a bg color
+        SDL_SetRenderDrawColor(this->_parentGame->getWindowRenderer(), 0xff, 0xff, 0xff, 0xff);
+        SDL_RenderClear(this->_parentGame->getWindowRenderer());
+
+        for (std::vector<GameObject>::size_type i = 0; i < this->_gameObjects.size(); i++) {
+            if (this->_gameObjects[i].isRenderable()) {
+                this->_gameObjects[i].render();
+
+            }
+        }
+
+        SDL_RenderPresent(this->_parentGame->getWindowRenderer());
+    }
+
     void Scene::destroy (void) {
 
     }

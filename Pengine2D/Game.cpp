@@ -85,6 +85,11 @@ namespace PGame {
 
     void Game::addScene (Scene *s) {
         this->_scenes.push_back(s);
+
+        if (this->_activeScene == NULL) {
+            this->_activeScene = s;
+
+        }
     }
 
     void Game::addScene(Scene *s, int ind) {
@@ -146,6 +151,36 @@ namespace PGame {
         return success;
     }
 
+    bool Game::getQuit (void) {
+        return this->_quit;
+    }
+
+    void Game::setQuit (void) {
+        this->_quit = true;
+    }
+
+    void Game::clearQuit (void) {
+        this->_quit = false;
+    }
+
+    void Game::run (void) {
+        // load the first scene
+
+        while (!this->_quit) {
+            // support window events at some point
+            while (SDL_PollEvent(&this->_inputEvent) != 0) {
+                if (this->_inputEvent.type == SDL_QUIT) {
+                    this->setQuit();
+
+                } else {
+                    this->_activeScene->inputController(this->_inputEvent);
+                    this->_activeScene->render();
+
+                }
+            }
+        }
+    }
+
     void Game::destroy () {
         // ITERATE OVER THE SCENES AND DESTROY THEM TOO
 
@@ -153,7 +188,7 @@ namespace PGame {
             SDL_DestroyWindow(this->_window);
             this->_window = NULL;
         }
-        
+
         if (this->_windowRenderer != NULL) {
             SDL_DestroyRenderer(this->_windowRenderer);
             this->_windowRenderer = NULL;

@@ -73,5 +73,19 @@ namespace  PGame {
         return this->_parentScene;
     }
 
+    bool GameObject::isRenderable (void) {
+        return this->_renderable;
+    }
+
+    void GameObject::setRenderable (void) {
+        this->_renderable = true;
+    }
+
+    void GameObject::clearRenderable (void) {
+        this->_renderable = false;
+    }
+
+    void GameObject::inputController(SDL_Event e){}
+    void GameObject::render(void){}
     GameObject::~GameObject () {}
 }

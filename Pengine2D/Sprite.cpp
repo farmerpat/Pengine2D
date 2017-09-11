@@ -7,6 +7,7 @@
 //
 
 #include "Sprite.hpp"
+#include <stdio.h>
 
 namespace PGame {
     Sprite::Sprite () : GameObject () { }
@@ -14,12 +15,19 @@ namespace PGame {
 
     Sprite::Sprite (std::string name, std::string pngPath) : GameObject (name) {
         this->_texture_png_path = pngPath;
-        this->initTexture();
+        if (this->initTexture()) {
+            this->setRenderable();
+
+        }
     }
 
     Sprite::Sprite (std::string name, std::string pngPath, PGame::Scene parentScene) : GameObject (name, parentScene) {
         this->_texture_png_path = pngPath;
-        this->initTexture();
+        if (this->initTexture()) {
+            this->setRenderable();
+            printf("here we go!");
+
+        }
     }
 
     PVector2D::Vector2D<int> Sprite::getVelocity () {
@@ -54,5 +62,13 @@ namespace PGame {
         return this->_texture;
     }
 
-    void Sprite::inputController (SDL_Event &e) { }
+    void Sprite::render (void) {
+        // probably just move the body of renderTexture in here.
+        this->renderTexture();
+    }
+
+    void Sprite::inputController (SDL_Event e) {
+        printf ("das input, <3 Sprite\n");
+
+    }
 }

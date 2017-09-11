@@ -25,10 +25,11 @@ namespace PGame {
         Sprite(std::string, std::string, PGame::Scene);
         PVector2D::Vector2D<int> getVelocity();
         void setVelocity(PVector2D::Vector2D<int>);
-        void inputController(SDL_Event&);
+        void inputController(SDL_Event);
         bool initTexture(void);
         PTexture::Texture getTexture(void);
-        void renderTexture (void);
+        void renderTexture(void);
+        void render(void);
 
     private:
         PVector2D::Vector2D<int> _velocity = PVector2D::Vector2D<int>(0,0);

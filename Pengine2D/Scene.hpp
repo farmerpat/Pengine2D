@@ -32,11 +32,37 @@ namespace PGame {
         GameObject *getGameObjectByName(std::string);
         Game *getParentGame(void);
         void destroy(void);
+        // virtual void render(void); ??
+        void render(void);
+        // ?
+        // the idea would be that
+        // Game loads the
+        // active scene and runs the main game loop
+        // gets input
+        // calls tick on the current scene
+        // then scene can loop through its game objects,
+        // passing all of them the SDL_Event in inputController
+        // each scene will be responsible for handling its end conditions
+        // when they are met via completion or death, they will tell Game
+        // somehow, and it will load the next scene, if applicable
+        // maybe they should tell the GameManager, which would be a property
+        // of Game
+        // to start, maybe they should just set a flag in Game so that it knows
+        // at the top of the game loop, Game could check and see if the current scene
+        // is done, and under what conditions.. there could be a specific game over
+        // scene (stored seperately from the vector of scenes) that it could load, for instance
+        void tick (SDL_Event*);
         virtual void init(void) = 0;
+        virtual void inputController(SDL_Event);
 
     protected:
         bool _initialized = false;
+        // this doesn't work for derived classes because of ojbect slicing
+        // basically, if we push a dervied class onto the vector, only
+        // the GameObject portion of the object is saved.
+        // must use smart pointers
         std::vector<GameObject> _gameObjects;
+        //std::vector<std::unique_ptr<GameObject>> _gameObjects;
         SDL_Surface *_surface = NULL;
         Game *_parentGame = NULL;
 
