@@ -31,8 +31,11 @@ int main(int argc, const char * argv[]) {
         ExampleScene scene = ExampleScene(&g);
         scene.init();
 
-        SDL_Delay(10000);
-        g.destroy();
+        g.addScene(&scene);
+        g.run();
+
+        //SDL_Delay(10000);
+        //g.destroy();
     }
 
     return 0;

@@ -10,6 +10,7 @@
 #include "Texture.hpp"
 #include "Game.hpp"
 #include "Sprite.hpp"
+#include <stdio.h>
 
 namespace PGame {
     ExampleScene::ExampleScene() {}
@@ -17,16 +18,16 @@ namespace PGame {
     ExampleScene::ExampleScene (Game *g) : Scene (g) { }
 
     void ExampleScene::init (void) {
-        Sprite s = Sprite("example_sprite", "test_img/slug_right.png", *this);
-        s.setPos(PVector2D::Vector2D<int>(100,100));
+        Sprite *s = new Sprite("example_sprite", "test_img/slug_right.png", *this);
+        s->setPos(PVector2D::Vector2D<int>(100,100));
+
+        this->addGameObject(s);
 
         // make these methods
-        SDL_SetRenderDrawColor(this->_parentGame->getWindowRenderer(), 0xff, 0xff, 0xff, 0xff);
-        SDL_RenderClear(this->_parentGame->getWindowRenderer());
-
-        s.renderTexture();
+        //SDL_SetRenderDrawColor(this->_parentGame->getWindowRenderer(), 0xff, 0xff, 0xff, 0xff);
+        //SDL_RenderClear(this->_parentGame->getWindowRenderer());
 
         // make this a method
-        SDL_RenderPresent(this->_parentGame->getWindowRenderer());
+        //SDL_RenderPresent(this->_parentGame->getWindowRenderer());
     }
 }

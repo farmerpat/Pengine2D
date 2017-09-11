@@ -21,6 +21,7 @@ Notes
 Short\-term TODO
 ===============
 
+* control frame rate
 * create GameObject subclass for Background
 * create GameObject subclass Sprites
 * create GameObject subclass Hero

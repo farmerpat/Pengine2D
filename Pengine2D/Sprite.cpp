@@ -7,6 +7,7 @@
 //
 
 #include "Sprite.hpp"
+#include <stdio.h>
 
 namespace PGame {
     Sprite::Sprite () : GameObject () { }
@@ -14,12 +15,19 @@ namespace PGame {
 
     Sprite::Sprite (std::string name, std::string pngPath) : GameObject (name) {
         this->_texture_png_path = pngPath;
-        this->initTexture();
+        if (this->initTexture()) {
+            this->setRenderable();
+
+        }
     }
 
     Sprite::Sprite (std::string name, std::string pngPath, PGame::Scene parentScene) : GameObject (name, parentScene) {
         this->_texture_png_path = pngPath;
-        this->initTexture();
+        if (this->initTexture()) {
+            this->setRenderable();
+            printf("here we go!");
+
+        }
     }
 
     PVector2D::Vector2D<int> Sprite::getVelocity () {
@@ -54,5 +62,46 @@ namespace PGame {
         return this->_texture;
     }
 
-    void Sprite::inputController (SDL_Event &e) { }
+    void Sprite::render (void) {
+        // probably just move the body of renderTexture in here.
+        this->renderTexture();
+    }
+
+    void Sprite::inputController (SDL_Event e) {
+        //PVector2D::Vector2D<int> vel = PVector2D::Vector2D<int>();
+        // seems like a Movable descendant of a GameObject should exist.
+        // Sprite would be a descendent of that
+        PVector2D::Vector2D<int> newPos = this->getPos();
+
+        //printf ("das input, <3 Sprite\n");
+        switch (e.key.keysym.sym) {
+            case SDLK_w:
+                // move up
+                //vel.setY(-1);
+                printf("move up\n");
+                newPos.setY(newPos.getY() - this->_speed);
+                break;
+            case SDLK_a:
+                // move left
+                //vel.setX(-1);
+                printf("move left\n");
+                newPos.setX(newPos.getX() - this->_speed);
+                break;
+            case SDLK_s:
+                // move down
+                //vel.setY(1);
+                printf("move down\n");
+                newPos.setY(newPos.getY() + this->_speed);
+                break;
+            case SDLK_d:
+                // move right
+                //vel.setX(1);
+                printf("move right\n");
+                newPos.setX(newPos.getX() + this->_speed);
+                break;
+
+        }
+
+        this->setPos(newPos);
+    }
 }

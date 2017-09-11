@@ -32,6 +32,9 @@ namespace PGame {
         void setBackgroundColor(SDL_Color);
         void setTitle(std::string);
         std::string getTitle(void);
+        bool getQuit(void);
+        void setQuit(void);
+        void clearQuit(void);
         SDL_Renderer *getWindowRenderer(void);
         void addScene(Scene*);
         void addScene(Scene*, int);
@@ -39,15 +42,18 @@ namespace PGame {
         bool init(void);
         bool getInitializationComplete(void);
         bool getInitializationSucceeded(void);
+        void run(void);
         void destroy(void);
 
     private:
         std::string _title = "";
         int _SCREEN_WIDTH = 640;
         int _SCREEN_HEIGHT = 480;
+        bool _quit = false;
         SDL_Window *_window = NULL;
         SDL_Renderer *_windowRenderer = NULL;
         SDL_Color _bgColor;
+        SDL_Event _inputEvent;
 
         std::vector<Scene*> _scenes;
         unsigned long _numScenes = 0;

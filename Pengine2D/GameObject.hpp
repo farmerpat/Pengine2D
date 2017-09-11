@@ -40,11 +40,17 @@ namespace PGame {
         void setXPos(int x);
         void setYPos(int y);
 
+        bool isRenderable(void);
+        void setRenderable(void);
+        void clearRenderable(void);
+        virtual void inputController(SDL_Event);
+        virtual void render(void);
         Scene *getParentScene(void);
 
     private:
         std::string _tag = "";
         std::string _name = "";
+        bool _renderable = false;
         PVector2D::Vector2D<int> _int_position = PVector2D::Vector2D<int>(0,0);
         Scene *_parentScene;
 
