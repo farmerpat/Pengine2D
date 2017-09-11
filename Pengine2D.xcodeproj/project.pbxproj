@@ -17,6 +17,7 @@
 		E44D27AE1F63225600C269E0 /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E44D27AC1F63225600C269E0 /* GameObject.cpp */; };
 		E46C00B81F63D50D00706934 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E46C00B61F63D50D00706934 /* Texture.cpp */; };
 		E46FEF231F646B72009547D9 /* ExampleScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E46FEF211F646B72009547D9 /* ExampleScene.cpp */; };
+		E4BCE3101F66F56300B3A555 /* Timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4BCE30E1F66F56300B3A555 /* Timer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -51,6 +52,8 @@
 		E46FEF151F6467B2009547D9 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		E46FEF211F646B72009547D9 /* ExampleScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExampleScene.cpp; sourceTree = "<group>"; };
 		E46FEF221F646B72009547D9 /* ExampleScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ExampleScene.hpp; sourceTree = "<group>"; };
+		E4BCE30E1F66F56300B3A555 /* Timer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Timer.cpp; sourceTree = "<group>"; };
+		E4BCE30F1F66F56300B3A555 /* Timer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Timer.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +100,8 @@
 				E46C00B71F63D50D00706934 /* Texture.hpp */,
 				E44D27AC1F63225600C269E0 /* GameObject.cpp */,
 				E44D27AD1F63225600C269E0 /* GameObject.hpp */,
+				E4BCE30E1F66F56300B3A555 /* Timer.cpp */,
+				E4BCE30F1F66F56300B3A555 /* Timer.hpp */,
 				E43B50581F64DBD600F00006 /* Sprite.cpp */,
 				E43B50591F64DBD600F00006 /* Sprite.hpp */,
 				E44D27B01F63238600C269E0 /* Vector2D.hpp */,
@@ -176,6 +181,7 @@
 				E46C00B81F63D50D00706934 /* Texture.cpp in Sources */,
 				E44D27AE1F63225600C269E0 /* GameObject.cpp in Sources */,
 				E44D27AB1F6321D300C269E0 /* Scene.cpp in Sources */,
+				E4BCE3101F66F56300B3A555 /* Timer.cpp in Sources */,
 				E46FEF231F646B72009547D9 /* ExampleScene.cpp in Sources */,
 				E44D27991F631CE900C269E0 /* main.cpp in Sources */,
 				E43B505A1F64DBD600F00006 /* Sprite.cpp in Sources */,
