@@ -35,15 +35,19 @@ namespace PGame {
         std::string getName(void);
         void setName(std::string);
 
-        PVector2D::Vector2D<int> getPos();
-        void setPos(PVector2D::Vector2D<int>);
-        void setXPos(int x);
-        void setYPos(int y);
+        PVector2D::Vector2D<float> getPos();
+        void setPos(PVector2D::Vector2D<float>);
+        void setXPos(float x);
+        void setYPos(float y);
 
         bool isRenderable(void);
         void setRenderable(void);
         void clearRenderable(void);
+        bool isMovable(void);
+        void setMovable(void);
+        void clearMovable(void);
         virtual void inputController(SDL_Event);
+        virtual void move(double);
         virtual void render(void);
         Scene *getParentScene(void);
 
@@ -51,7 +55,8 @@ namespace PGame {
         std::string _tag = "";
         std::string _name = "";
         bool _renderable = false;
-        PVector2D::Vector2D<int> _int_position = PVector2D::Vector2D<int>(0,0);
+        bool _movable = false;
+        PVector2D::Vector2D<float> _position = PVector2D::Vector2D<float>(0.0,0.0);
         Scene *_parentScene;
 
     };

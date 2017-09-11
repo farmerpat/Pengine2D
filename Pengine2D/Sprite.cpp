@@ -17,6 +17,7 @@ namespace PGame {
         this->_texture_png_path = pngPath;
         if (this->initTexture()) {
             this->setRenderable();
+            this->setMovable();
 
         }
     }
@@ -25,16 +26,16 @@ namespace PGame {
         this->_texture_png_path = pngPath;
         if (this->initTexture()) {
             this->setRenderable();
-            printf("here we go!");
+            this->setMovable();
 
         }
     }
 
-    PVector2D::Vector2D<int> Sprite::getVelocity () {
+    PVector2D::Vector2D<float> Sprite::getVelocity () {
         return this->_velocity;
     }
 
-    void Sprite::setVelocity (PVector2D::Vector2D<int> newVel) {
+    void Sprite::setVelocity (PVector2D::Vector2D<float> newVel) {
         this->_velocity = newVel;
     }
 
@@ -54,54 +55,93 @@ namespace PGame {
         return success;
     }
 
-    void Sprite::renderTexture (void) {
-        this->_texture.render(this->getPos().getX(), this->getPos().getY());
-    }
-
     PTexture::Texture Sprite::getTexture (void) {
         return this->_texture;
     }
 
     void Sprite::render (void) {
         // probably just move the body of renderTexture in here.
-        this->renderTexture();
+        //this->renderTexture();
+        this->_texture.render(this->getPos().getX(), this->getPos().getY());
     }
 
     void Sprite::inputController (SDL_Event e) {
-        //PVector2D::Vector2D<int> vel = PVector2D::Vector2D<int>();
-        // seems like a Movable descendant of a GameObject should exist.
+        // maybe seems like a Movable descendant of a GameObject should exist.
         // Sprite would be a descendent of that
-        PVector2D::Vector2D<int> newPos = this->getPos();
+        float newX = 0.0;
+        float newY = 0.0;
 
-        //printf ("das input, <3 Sprite\n");
-        switch (e.key.keysym.sym) {
-            case SDLK_w:
-                // move up
-                //vel.setY(-1);
-                printf("move up\n");
-                newPos.setY(newPos.getY() - this->_speed);
-                break;
-            case SDLK_a:
-                // move left
-                //vel.setX(-1);
-                printf("move left\n");
-                newPos.setX(newPos.getX() - this->_speed);
-                break;
-            case SDLK_s:
-                // move down
-                //vel.setY(1);
-                printf("move down\n");
-                newPos.setY(newPos.getY() + this->_speed);
-                break;
-            case SDLK_d:
-                // move right
-                //vel.setX(1);
-                printf("move right\n");
-                newPos.setX(newPos.getX() + this->_speed);
-                break;
+        if (e.type == SDL_KEYDOWN) {
+            switch (e.key.keysym.sym) {
+                case SDLK_w:
+                    // move up
+                    newY = this->_velocity.getY() - this->_speed;
+                    if (newY < -this->_maxSpeed) {
+                        newY = -this->_maxSpeed;
+                    }
 
+                    this->_velocity.setY(newY);
+                    break;
+
+                case SDLK_a:
+                    // move left
+                    newX = this->_velocity.getX() - this->_speed;
+                    if (newX < -this->_maxSpeed) {
+                        newX = -this->_maxSpeed;
+                    }
+
+                    this->_velocity.setX(newX);
+                    break;
+
+                case SDLK_s:
+                    // move down
+                    newY = this->_velocity.getY() + this->_speed;
+                    if (newY > this->_maxSpeed) {
+                        newY = this->_maxSpeed;
+                    }
+
+                    this->_velocity.setY(newY);
+                    break;
+
+                case SDLK_d:
+                    // move right
+                    newX = this->_velocity.getX() + this->_speed;
+                    if (newX > this->_maxSpeed) {
+                        newX = this->_maxSpeed;
+                    }
+
+                    this->_velocity.setX(newX);
+                    break;
+
+            }
+        } else if (e.type == SDL_KEYUP) {
+            // adjust _velocity when gey released
+            switch (e.key.keysym.sym) {
+                case SDLK_w:
+                    this->_velocity.setY(this->_velocity.getY() + this->_speed);
+                    break;
+
+                case SDLK_a:
+                    this->_velocity.setX(this->_velocity.getX() + this->_speed);
+                    break;
+
+                case SDLK_s:
+                    this->_velocity.setY(this->_velocity.getY() - this->_speed);
+                    break;
+
+                case SDLK_d:
+                    this->_velocity.setX(this->_velocity.getX() - this->_speed);
+                    break;
+            }
         }
+    }
 
-        this->setPos(newPos);
+    void Sprite::move (double dt) {
+        // apply drag and or friction here somehow
+        float newXPos = this->getVelocity().getX() * (dt / 1000.0f);
+        this->setXPos(this->getPos().getX() + newXPos);
+
+        float newYPos = this->getVelocity().getY() * (dt / 1000.0f);
+        this->setYPos(this->getPos().getY() + newYPos);
     }
 }

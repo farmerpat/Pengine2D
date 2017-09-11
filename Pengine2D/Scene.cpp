@@ -64,6 +64,15 @@ namespace  PGame {
         SDL_RenderPresent(this->_parentGame->getWindowRenderer());
     }
 
+    void Scene::move (double dt) {
+        for (std::vector<GameObject>::size_type i = 0; i < this->_gameObjects.size(); i++) {
+            if (this->_gameObjects[i]->isMovable()) {
+                this->_gameObjects[i]->move(dt);
+
+            }
+        }
+    }
+
     void Scene::destroy (void) {
 
     }

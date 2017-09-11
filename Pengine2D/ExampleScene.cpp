@@ -19,7 +19,7 @@ namespace PGame {
 
     void ExampleScene::init (void) {
         Sprite *s = new Sprite("example_sprite", "test_img/slug_right.png", *this);
-        s->setPos(PVector2D::Vector2D<int>(100,100));
+        s->setPos(PVector2D::Vector2D<float>(100.0,100.0));
 
         this->addGameObject(s);
 

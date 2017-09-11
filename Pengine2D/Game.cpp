@@ -8,6 +8,7 @@
 
 #include "Game.hpp"
 #include "Scene.hpp"
+#include "Timer.hpp"
 
 namespace PGame {
     Game::Game () {}
@@ -164,6 +165,10 @@ namespace PGame {
     }
 
     void Game::run (void) {
+        double dt = 0.0;
+        Timer t = Timer();
+        t.start();
+
         // load the first scene
 
         while (!this->_quit) {
@@ -174,10 +179,14 @@ namespace PGame {
 
                 } else {
                     this->_activeScene->inputController(this->_inputEvent);
-                    this->_activeScene->render();
 
                 }
             }
+
+            dt = t.getTicks();
+            this->_activeScene->move(dt);
+            t.start();
+            this->_activeScene->render();
         }
     }
 

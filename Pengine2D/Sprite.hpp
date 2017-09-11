@@ -23,19 +23,20 @@ namespace PGame {
         Sprite(std::string);
         Sprite(std::string, std::string);
         Sprite(std::string, std::string, PGame::Scene);
-        PVector2D::Vector2D<int> getVelocity();
-        void setVelocity(PVector2D::Vector2D<int>);
+        PVector2D::Vector2D<float> getVelocity();
+        void setVelocity(PVector2D::Vector2D<float>);
         void inputController(SDL_Event);
+        void move(double);
         bool initTexture(void);
         PTexture::Texture getTexture(void);
-        void renderTexture(void);
         void render(void);
 
     private:
-        PVector2D::Vector2D<int> _velocity = PVector2D::Vector2D<int>(0,0);
+        PVector2D::Vector2D<float> _velocity = PVector2D::Vector2D<float>(0.0,0.0);
         std::string _texture_png_path = "";
         PTexture::Texture _texture;
-        int _speed = 2;
+        int _speed = 20;
+        int _maxSpeed = 100;
         // add a hash table of animations at some point
 
     };

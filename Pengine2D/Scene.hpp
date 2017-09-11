@@ -34,6 +34,7 @@ namespace PGame {
         void destroy(void);
         // virtual void render(void); ??
         void render(void);
+        void move(double);
         // ?
         // the idea would be that
         // Game loads the

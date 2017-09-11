@@ -10,16 +10,16 @@
 
 namespace  PGame {
     GameObject::GameObject () {
-        this->_int_position = PVector2D::Vector2D<int>(0,0);
+        this->_position = PVector2D::Vector2D<float>(0.0,0.0);
     }
 
     GameObject::GameObject (std::string name) {
-        this->_int_position = PVector2D::Vector2D<int>(0,0);
+        this->_position = PVector2D::Vector2D<float>(0.0,0.0);
         this->_name = name;
     }
 
     GameObject::GameObject (std::string name, PGame::Scene scene) {
-        this->_int_position = PVector2D::Vector2D<int>(0,0);
+        this->_position = PVector2D::Vector2D<float>(0.0,0.0);
         this->_name = name;
         this->_parentScene = &scene;
     }
@@ -40,34 +40,21 @@ namespace  PGame {
         this->_name = newName;
     }
 
-    PVector2D::Vector2D<int> GameObject::getPos () {
-        return this->_int_position;
+    PVector2D::Vector2D<float> GameObject::getPos () {
+        return this->_position;
     }
 
-    void GameObject::setPos (PVector2D::Vector2D<int> newVec) {
-        this->_int_position = newVec;
+    void GameObject::setPos (PVector2D::Vector2D<float> newVec) {
+        this->_position = newVec;
     }
 
-    void GameObject::setXPos (int x) {
-        this->_int_position.setX(x);
-        //if (typeid(x).name == typeid(this->_position.getX()).name) {
-        //    this->_position->setXPos(x);
-        //}
-
-        // otherwise, throw an error or something useful
+    void GameObject::setXPos (float x) {
+        this->_position.setX(x);
     }
 
-    //void GameObject::setXPos (float x) {
-
-    //}
-
-    void GameObject::setYPos (int y) {
-        this->_int_position.setY(y);
+    void GameObject::setYPos (float y) {
+        this->_position.setY(y);
     }
-
-    //void GameObject::setYPos (float y) {
-
-    //}
 
     PGame::Scene *GameObject::getParentScene (void) {
         return this->_parentScene;
@@ -85,7 +72,20 @@ namespace  PGame {
         this->_renderable = false;
     }
 
-    void GameObject::inputController(SDL_Event e){}
+    bool GameObject::isMovable (void) {
+        return this->_movable;
+    }
+
+    void GameObject::setMovable (void) {
+        this->_movable = true;
+    }
+
+    void GameObject::clearMovable (void) {
+        this->_movable = false;
+    }
+
+    void GameObject::inputController(SDL_Event e) {}
+    void GameObject::move(double dt) {}
     void GameObject::render(void){}
     GameObject::~GameObject () {}
 }
