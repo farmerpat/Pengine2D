@@ -172,19 +172,33 @@ namespace PGame {
         // load the first scene
 
         while (!this->_quit) {
+            bool receivedInput = false;
+
             // support window events at some point
             while (SDL_PollEvent(&this->_inputEvent) != 0) {
                 if (this->_inputEvent.type == SDL_QUIT) {
                     this->setQuit();
 
                 } else {
-                    this->_activeScene->inputController(this->_inputEvent);
+                    receivedInput = true;
 
                 }
             }
 
+            const Uint8 *keyStates = SDL_GetKeyboardState(NULL);
+
+            this->_activeScene->inputController(keyStates);
+
             dt = t.getTicks();
+
+            if (!receivedInput) {
+                this->_activeScene->applyDragAndGravity(dt);
+            }
+
             this->_activeScene->move(dt);
+
+            // this->_activeScene->handleCollisions();
+
             t.start();
             this->_activeScene->render();
         }

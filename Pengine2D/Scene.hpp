@@ -35,6 +35,7 @@ namespace PGame {
         // virtual void render(void); ??
         void render(void);
         void move(double);
+        void applyDragAndGravity(double);
         // ?
         // the idea would be that
         // Game loads the
@@ -54,16 +55,15 @@ namespace PGame {
         // scene (stored seperately from the vector of scenes) that it could load, for instance
         void tick (SDL_Event*);
         virtual void init(void) = 0;
-        virtual void inputController(SDL_Event);
+        virtual void inputController(const Uint8*);
 
     protected:
         bool _initialized = false;
         // this doesn't work for derived classes because of ojbect slicing
         // basically, if we push a dervied class onto the vector, only
         // the GameObject portion of the object is saved.
-        // must use smart pointers
+        // hence, pointers
         std::vector<GameObject*> _gameObjects;
-        //std::vector<std::unique_ptr<GameObject>> _gameObjects;
         SDL_Surface *_surface = NULL;
         Game *_parentGame = NULL;
 

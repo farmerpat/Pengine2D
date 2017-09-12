@@ -31,12 +31,12 @@ namespace PGame {
         }
     }
 
-    PVector2D::Vector2D<float> Sprite::getVelocity () {
+    PVector2D::Vector2D<float> *Sprite::getVelocity () {
         return this->_velocity;
     }
 
     void Sprite::setVelocity (PVector2D::Vector2D<float> newVel) {
-        this->_velocity = newVel;
+        *(this->_velocity) = newVel;
     }
 
     bool Sprite::initTexture () {
@@ -65,84 +65,49 @@ namespace PGame {
         this->_texture.render(this->getPos().getX(), this->getPos().getY());
     }
 
-    void Sprite::inputController (SDL_Event e) {
+    void Sprite::inputController (const Uint8 *keystates) {
         // this should only be on the player sprite!
         // maybe seems like a Movable descendant of a GameObject should exist.
         // Sprite would be a descendent of that
         float newX = 0.0;
         float newY = 0.0;
 
-        if (e.type == SDL_KEYDOWN) {
-            switch (e.key.keysym.sym) {
-                case SDLK_w:
-                    // move up
-                    newY = this->_velocity.getY() - this->_speed;
-                    if (newY < -this->_maxSpeed) {
-                        newY = -this->_maxSpeed;
-                    }
-
-                    this->_velocity.setY(newY);
-                    break;
-
-                case SDLK_a:
-                    // move left
-                    newX = this->_velocity.getX() - this->_speed;
-                    if (newX < -this->_maxSpeed) {
-                        newX = -this->_maxSpeed;
-                    }
-
-                    this->_velocity.setX(newX);
-                    break;
-
-                case SDLK_s:
-                    // move down
-                    newY = this->_velocity.getY() + this->_speed;
-                    if (newY > this->_maxSpeed) {
-                        newY = this->_maxSpeed;
-                    }
-
-                    this->_velocity.setY(newY);
-                    break;
-
-                case SDLK_d:
-                    // move right
-                    newX = this->_velocity.getX() + this->_speed;
-                    if (newX > this->_maxSpeed) {
-                        newX = this->_maxSpeed;
-                    }
-
-                    this->_velocity.setX(newX);
-                    break;
+        if (keystates[SDL_SCANCODE_W]) {
+            // move up
+            newY = this->_velocity->getY() - this->_speed;
+            if (newY < -this->_maxSpeed) {
+                newY = -this->_maxSpeed;
 
             }
-        } else if (e.type == SDL_KEYUP) {
-            // adjust _velocity when gey released
-            switch (e.key.keysym.sym) {
-                case SDLK_w:
-                    this->_velocity.setY(this->_velocity.getY() + this->_speed);
-                    break;
 
-                case SDLK_a:
-                    this->_velocity.setX(this->_velocity.getX() + this->_speed);
-                    break;
+            this->_velocity->setY(newY);
+        }
 
-                case SDLK_s:
-                    this->_velocity.setY(this->_velocity.getY() - this->_speed);
-                    break;
-
-                case SDLK_d:
-                    this->_velocity.setX(this->_velocity.getX() - this->_speed);
-                    break;
+        if (keystates[SDL_SCANCODE_D]) {
+            // move right
+            newX = this->_velocity->getX() + this->_speed;
+            if (newX > this->_maxSpeed) {
+                newX = this->_maxSpeed;
             }
+
+            this->_velocity->setX(newX);
+        } else if (keystates[SDL_SCANCODE_A]) {
+            // move left
+            newX = this->_velocity->getX() - this->_speed;
+            if (newX < -this->_maxSpeed) {
+                newX = -this->_maxSpeed;
+
+            }
+
+            this->_velocity->setX(newX);
         }
     }
 
     void Sprite::move (double dt) {
-        // apply drag and or friction here somehow
-        float newXPos = this->getVelocity().getX() * (dt / 1000.0f);
+        float newXPos = this->getVelocity()->getX() * (dt / 1000.0f);
         this->setXPos(this->getPos().getX() + newXPos);
 
-        float newYPos = this->getVelocity().getY() * (dt / 1000.0f);
+        float newYPos = this->getVelocity()->getY() * (dt / 1000.0f);
         this->setYPos(this->getPos().getY() + newYPos);
     }
 }

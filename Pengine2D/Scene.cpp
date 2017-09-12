@@ -42,9 +42,9 @@ namespace  PGame {
         return go;
     }
 
-    void Scene::inputController (SDL_Event e) {
+    void Scene::inputController (const Uint8 *keystates) {
         for (std::vector<GameObject>::size_type i = 0; i < this->_gameObjects.size(); i++) {
-            this->_gameObjects[i]->inputController(e);
+            this->_gameObjects[i]->inputController(keystates);
 
         }
     }
@@ -68,6 +68,54 @@ namespace  PGame {
         for (std::vector<GameObject>::size_type i = 0; i < this->_gameObjects.size(); i++) {
             if (this->_gameObjects[i]->isMovable()) {
                 this->_gameObjects[i]->move(dt);
+
+            }
+        }
+    }
+
+    void Scene::applyDragAndGravity (double dt) {
+        float xTolerance = 0.01f;
+        float xDrag = 0.20f;
+
+        // if there's no button being pressed, apply drag to the player,
+        // so he eventually stops
+        // need a Player:Sprite class...
+        for (std::vector<GameObject>::size_type i = 0; i < this->_gameObjects.size(); i++) {
+            if (this->_gameObjects[i]->isMovable()) {
+                PVector2D::Vector2D<float> *vel = this->_gameObjects[i]->getVelocity();
+                float xVel = vel->getX();
+                float yVel = vel->getY();
+
+                if (xVel > 0) {
+                    // moving right
+                    if (xVel < xTolerance) {
+                        xVel = 0.0f;
+
+                    } else if (xVel - (xDrag * dt) < 0) {
+                        xVel = 0.0f;
+
+                    } else {
+                        xVel -= (xDrag * dt);
+
+                    }
+                } else if (xVel < 0) {
+                    // moving left
+                    if (xVel > -xTolerance) {
+                        xVel = 0.0f;
+
+                    } else if (xVel + (xDrag * dt) > 0) {
+                        xVel = 0.0f;
+
+                    } else {
+                        xVel += (xDrag * dt);
+
+                    }
+                }
+
+                this->_gameObjects[i]->getVelocity()->setX(xVel);
+                // apply gravity to y if velocity is negative
+                // this only makes sense to do when there is
+                // something to collide with under the player
 
             }
         }

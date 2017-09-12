@@ -56,6 +56,10 @@ namespace  PGame {
         this->_position.setY(y);
     }
 
+    PVector2D::Vector2D<float> *GameObject::getVelocity (void) {
+        return this->_velocity;
+    }
+
     PGame::Scene *GameObject::getParentScene (void) {
         return this->_parentScene;
     }
@@ -84,7 +88,7 @@ namespace  PGame {
         this->_movable = false;
     }
 
-    void GameObject::inputController(SDL_Event e) {}
+    void GameObject::inputController(const Uint8 *keystates) {}
     void GameObject::move(double dt) {}
     void GameObject::render(void){}
     GameObject::~GameObject () {}

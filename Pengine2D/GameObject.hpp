@@ -39,6 +39,7 @@ namespace PGame {
         void setPos(PVector2D::Vector2D<float>);
         void setXPos(float x);
         void setYPos(float y);
+        virtual PVector2D::Vector2D<float>* getVelocity(void);
 
         bool isRenderable(void);
         void setRenderable(void);
@@ -46,7 +47,7 @@ namespace PGame {
         bool isMovable(void);
         void setMovable(void);
         void clearMovable(void);
-        virtual void inputController(SDL_Event);
+        virtual void inputController(const Uint8*);
         virtual void move(double);
         virtual void render(void);
         Scene *getParentScene(void);
@@ -57,6 +58,7 @@ namespace PGame {
         bool _renderable = false;
         bool _movable = false;
         PVector2D::Vector2D<float> _position = PVector2D::Vector2D<float>(0.0,0.0);
+        PVector2D::Vector2D<float> *_velocity = NULL;
         Scene *_parentScene;
 
     };
