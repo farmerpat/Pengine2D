@@ -25,20 +25,16 @@ namespace PGame {
         Sprite(std::string, std::string, PGame::Scene);
         PVector2D::Vector2D<float> *getVelocity();
         void setVelocity(PVector2D::Vector2D<float>);
-        void inputController(const Uint8*);
+        virtual void inputController(const Uint8*);
         void move(double);
         bool initTexture(void);
         PTexture::Texture getTexture(void);
         void render(void);
 
-    private:
+    protected:
         PVector2D::Vector2D<float> *_velocity = new PVector2D::Vector2D<float>(0.0,0.0);
         std::string _texture_png_path = "";
         PTexture::Texture _texture;
-        int _initialSpeed = 40;
-        int _speed = 20;
-        int _maxSpeed = 100;
-        // add a hash table of animations at some point
 
     };
 }

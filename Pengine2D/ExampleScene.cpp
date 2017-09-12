@@ -9,7 +9,7 @@
 #include "ExampleScene.hpp"
 #include "Texture.hpp"
 #include "Game.hpp"
-#include "Sprite.hpp"
+#include "Hero.hpp"
 #include <stdio.h>
 
 namespace PGame {
@@ -18,7 +18,7 @@ namespace PGame {
     ExampleScene::ExampleScene (Game *g) : Scene (g) { }
 
     void ExampleScene::init (void) {
-        Sprite *s = new Sprite("example_sprite", "test_img/slug_right.png", *this);
+        Hero *s = new Hero("example_sprite", "test_img/slug_right.png", *this);
         s->setPos(PVector2D::Vector2D<float>(100.0,100.0));
 
         this->addGameObject(s);
