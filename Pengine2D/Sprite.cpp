@@ -22,7 +22,7 @@ namespace PGame {
         }
     }
 
-    Sprite::Sprite (std::string name, std::string pngPath, PGame::Scene parentScene) : GameObject (name, parentScene) {
+    Sprite::Sprite (std::string name, std::string pngPath, PGame::Scene *parentScene) : GameObject (name, parentScene) {
         this->_texture_png_path = pngPath;
         if (this->initTexture()) {
             this->setRenderable();

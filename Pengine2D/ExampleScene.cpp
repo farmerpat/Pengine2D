@@ -18,16 +18,11 @@ namespace PGame {
     ExampleScene::ExampleScene (Game *g) : Scene (g) { }
 
     void ExampleScene::init (void) {
-        Hero *s = new Hero("example_sprite", "test_img/slug_right.png", *this);
-        s->setPos(PVector2D::Vector2D<float>(100.0,100.0));
+        Hero *hero = new Hero("example_sprite", "test_img/slug_right.png", this);
+        hero->setPos(PVector2D::Vector2D<float>(100.0,100.0));
+        hero->setTextureForState("test_img/slug_right.png", "non_animated_right");
+        hero->setTextureForState("test_img/slug_left.png", "non_animated_left");
 
-        this->addGameObject(s);
-
-        // make these methods
-        //SDL_SetRenderDrawColor(this->_parentGame->getWindowRenderer(), 0xff, 0xff, 0xff, 0xff);
-        //SDL_RenderClear(this->_parentGame->getWindowRenderer());
-
-        // make this a method
-        //SDL_RenderPresent(this->_parentGame->getWindowRenderer());
+        this->addGameObject(hero);
     }
 }

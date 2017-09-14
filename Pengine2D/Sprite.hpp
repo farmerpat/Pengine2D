@@ -22,7 +22,7 @@ namespace PGame {
         Sprite();
         Sprite(std::string);
         Sprite(std::string, std::string);
-        Sprite(std::string, std::string, PGame::Scene);
+        Sprite(std::string, std::string, PGame::Scene*);
         PVector2D::Vector2D<float> *getVelocity();
         void setVelocity(PVector2D::Vector2D<float>);
         virtual void inputController(const Uint8*);

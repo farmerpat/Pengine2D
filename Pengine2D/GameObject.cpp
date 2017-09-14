@@ -18,10 +18,16 @@ namespace  PGame {
         this->_name = name;
     }
 
-    GameObject::GameObject (std::string name, PGame::Scene scene) {
+    GameObject::GameObject (std::string name, PGame::Scene *scene) {
         this->_position = PVector2D::Vector2D<float>(0.0,0.0);
         this->_name = name;
-        this->_parentScene = &scene;
+        this->_parentScene = scene;
+    }
+
+    GameObject::GameObject (std::string name, std::string pngPath, PGame::Scene *scene) {
+        this->_position = PVector2D::Vector2D<float>(0.0,0.0);
+        this->_name = name;
+        this->_parentScene = scene;
     }
 
     std::string GameObject::getTag () {
