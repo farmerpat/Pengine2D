@@ -59,17 +59,79 @@ namespace PGame {
         return this->_texture;
     }
 
+    HitBox *Sprite::getHitBox (void) {
+        return this->_hitbox;
+    }
+
+    bool Sprite::hasHitBox (void) {
+        bool pred = false;
+
+        if (this->_hitbox != NULL) {
+            pred = true;
+        }
+
+        return pred;
+    }
+
+    void Sprite::initHitBox (float w, float h) {
+        HitBox *hb = new HitBox(this->getPos().getX(), this->getPos().getY(), w, h);
+
+        this->_hitbox = hb;
+    }
+
+    void Sprite::setShowHitBox (void) {
+        this->_show_hitbox = true;
+    }
+
+    void Sprite::clearShowHitBox (void) {
+        this->_show_hitbox = false;
+    }
+
     void Sprite::render (void) {
         this->_texture.render(this->getPos().getX(), this->getPos().getY());
+
+        if (this->_show_hitbox && this->_hitbox != NULL) {
+            SDL_Renderer *renderer = this->getTexture().getTargetRenderer();
+
+            if (renderer != NULL) {
+                SDL_Color *hbColor = this->getHitBox()->getColor();
+
+                if (hbColor == NULL) {
+                    hbColor = new SDL_Color;
+                    hbColor->r = 0x00;
+                    hbColor->g = 0x00;
+                    hbColor->b = 0x00;
+                    hbColor->a = 0xff;
+                }
+
+                SDL_SetRenderDrawColor(renderer, hbColor->r, hbColor->g, hbColor->b, hbColor->a);
+                SDL_RenderDrawRect(renderer, this->getHitBox()->getRect());
+            }
+        }
     }
 
     void Sprite::inputController (const Uint8 *keystates) { }
 
     void Sprite::move (double dt) {
-        float newXPos = this->getVelocity()->getX() * (dt / 1000.0f);
-        this->setXPos(this->getPos().getX() + newXPos);
+        float deltaX = this->getVelocity()->getX() * (dt / 1000.0f);
+        float newSpriteXPos = this->getPos().getX() + deltaX;
+        this->setXPos(newSpriteXPos);
 
-        float newYPos = this->getVelocity()->getY() * (dt / 1000.0f);
-        this->setYPos(this->getPos().getY() + newYPos);
+        if (this->hasHitBox()) {
+            float newHitBoxXPos = this->_hitbox->getPos().getX() + deltaX;
+            this->_hitbox->setXPos(newHitBoxXPos);
+            this->_hitbox->updatePosition();
+        }
+
+        float deltaY = this->getVelocity()->getY() * (dt / 1000.0f);
+        float newSpriteYPos = this->getPos().getY() + deltaY;
+        this->setYPos(newSpriteYPos);
+
+        if (this->hasHitBox()) {
+            float newHitBoxYPos = this->_hitbox->getPos().getY() + deltaY;
+            this->_hitbox->setYPos(newHitBoxYPos);
+            this->_hitbox->updatePosition();
+
+        }
     }
 }

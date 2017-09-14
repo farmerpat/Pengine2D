@@ -14,6 +14,7 @@
 #include "GameObject.hpp"
 #include "Texture.hpp"
 #include "Scene.hpp"
+#include "HitBox.hpp"
 #include "Game.hpp"
 
 namespace PGame {
@@ -23,7 +24,15 @@ namespace PGame {
         Sprite(std::string);
         Sprite(std::string, std::string);
         Sprite(std::string, std::string, PGame::Scene*);
+
         PVector2D::Vector2D<float> *getVelocity();
+
+        HitBox *getHitBox(void);
+        bool hasHitBox(void);
+        void initHitBox (float, float);
+        void setShowHitBox(void);
+        void clearShowHitBox(void);
+
         void setVelocity(PVector2D::Vector2D<float>);
         virtual void inputController(const Uint8*);
         void move(double);
@@ -35,6 +44,8 @@ namespace PGame {
         PVector2D::Vector2D<float> *_velocity = new PVector2D::Vector2D<float>(0.0,0.0);
         std::string _texture_png_path = "";
         PTexture::Texture _texture;
+        HitBox *_hitbox = NULL;
+        bool _show_hitbox = false;
 
     };
 }

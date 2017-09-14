@@ -51,7 +51,7 @@ namespace  PGame {
 
     void Scene::render (void) {
         // allow a bg color
-        SDL_SetRenderDrawColor(this->_parentGame->getWindowRenderer(), 0xff, 0xff, 0xff, 0xff);
+        SDL_SetRenderDrawColor(this->_parentGame->getWindowRenderer(), 0xa5, 0xc7, 0xff, 0xff);
         SDL_RenderClear(this->_parentGame->getWindowRenderer());
 
         for (std::vector<GameObject>::size_type i = 0; i < this->_gameObjects.size(); i++) {

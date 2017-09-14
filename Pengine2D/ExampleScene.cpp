@@ -19,7 +19,11 @@ namespace PGame {
 
     void ExampleScene::init (void) {
         Hero *hero = new Hero("example_sprite", "test_img/slug_right.png", this);
+
         hero->setPos(PVector2D::Vector2D<float>(100.0,100.0));
+        hero->initHitBox(32.0, 32.0);
+        hero->setShowHitBox();
+
         hero->setTextureForState("test_img/slug_right.png", "non_animated_right");
         hero->setTextureForState("test_img/slug_left.png", "non_animated_left");
 

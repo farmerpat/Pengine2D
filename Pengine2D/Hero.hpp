@@ -30,7 +30,6 @@ namespace PGame {
         void move(double);
 
         bool setTextureForState (std::string, std::string);
-        //PTexture::Texture *getInitialActiveTexture(void);
 
     private:
         void updateActiveTexture(void);

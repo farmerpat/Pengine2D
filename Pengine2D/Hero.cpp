@@ -98,9 +98,28 @@ namespace PGame {
 
     void Hero::render (void) {
         this->updateActiveTexture();
+
         if (this->_active_texture != NULL) {
             this->_active_texture->render(this->getPos().getX(), this->getPos().getY());
+        }
 
+        if (this->_show_hitbox && this->_hitbox != NULL) {
+            SDL_Renderer *renderer = this->getTexture().getTargetRenderer();
+
+            if (renderer != NULL) {
+                SDL_Color *hbColor = this->getHitBox()->getColor();
+
+                if (hbColor == NULL) {
+                    hbColor = new SDL_Color;
+                    hbColor->r = 0x00;
+                    hbColor->g = 0x00;
+                    hbColor->b = 0x00;
+                    hbColor->a = 0xff;
+                }
+
+                SDL_SetRenderDrawColor(renderer, hbColor->r, hbColor->g, hbColor->b, hbColor->a);
+                SDL_RenderDrawRect(renderer, this->getHitBox()->getRect());
+            }
         }
     }
 
