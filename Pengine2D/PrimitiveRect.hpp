@@ -10,21 +10,35 @@
 #define PrimitiveRect_hpp
 
 #include <stdio.h>
+#include <string>
+#include "Game.hpp"
+#include "Scene.hpp"
 #include "GameObject.hpp"
 #include "HitBox.hpp"
 
 namespace PGame {
     class PrimitiveRect: public GameObject {
     public:
-        PrimitiveRect();
-        PrimitiveRect(int, int, int, int);
-        void setColor(SDL_Color);
+        PrimitiveRect(void);
+        PrimitiveRect(std::string);
+        PrimitiveRect(std::string, SDL_Rect*, Scene*);
+        void setColor(SDL_Color*);
+        void setRect(SDL_Rect*);
         void render(void);
+        // PrimitiveRect and Sprite could theoretically
+        // descend from the same Parent class (Collidable or something)
+        // just for the hitbox members and some kind of overridable
+        // resolveCollisions function
         void initHitBox(void);
+        HitBox *getHitBox(void);
+        void setShowHitBox(void);
+        void clearShowHitBox(void);
 
     private:
         SDL_Rect *_rect = NULL;
         HitBox *_hitbox = NULL;
+        bool _show_hitbox = false;
+        SDL_Color *_color = NULL;
 
     };
 }

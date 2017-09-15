@@ -56,6 +56,20 @@ namespace PGame {
         this->_color = c;
     }
 
+    HitBox::HitBox (SDL_Rect *rect) {
+        this->_rect = rect;
+        this->setXPos(this->_rect->x);
+        this->setYPos(this->_rect->y);
+
+        SDL_Color *c = new SDL_Color();
+        c->r = 0x76;
+        c->g = 0xff;
+        c->b = 0x1c;
+        c->a = 0xff;
+
+        this->_color = c;
+    }
+
     int HitBox::getWidth (void) {
         int width = 0;
 

@@ -21,6 +21,7 @@ Notes
 Short\-term TODO
 ===============
 
+* add a render method to HitBox and use it in PrimitiveRect and Sprite
 * control frame rate
 * create GameObject subclass for Background
 * create GameObject subclass Sprites

@@ -10,6 +10,7 @@
 #include "Texture.hpp"
 #include "Game.hpp"
 #include "Hero.hpp"
+#include "PrimitiveRect.hpp"
 #include <stdio.h>
 
 namespace PGame {
@@ -28,5 +29,24 @@ namespace PGame {
         hero->setTextureForState("test_img/slug_left.png", "non_animated_left");
 
         this->addGameObject(hero);
+
+        SDL_Rect *platformRect = new SDL_Rect();
+        platformRect->x = 100;
+        platformRect->y = 200;
+        platformRect->w = 400;
+        platformRect->h = 30;
+
+        SDL_Color *platformColor = new SDL_Color();
+        platformColor->r = 0x84;
+        platformColor->r = 0x7e;
+        platformColor->r = 0x87;
+        platformColor->a = 0xff;
+
+        PrimitiveRect *platform = new PrimitiveRect("platform0", platformRect, this);
+        platform->setColor(platformColor);
+        platform->initHitBox();
+        platform->setShowHitBox();
+
+        this->addGameObject(platform);
     }
 }

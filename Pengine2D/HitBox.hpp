@@ -17,6 +17,7 @@ namespace PGame {
     public:
         HitBox();
         HitBox(float, float, int, int);
+        HitBox(SDL_Rect*);
         int getWidth(void);
         void setWidth(int);
         int getHeight(void);
