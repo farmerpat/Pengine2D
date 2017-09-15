@@ -35,6 +35,8 @@ namespace PGame {
         void setTag(std::string);
         std::string getName(void);
         void setName(std::string);
+        std::string getBodyType(void);
+        void setBodyType(std::string);
 
         PVector2D::Vector2D<float> getPos();
         void setPos(PVector2D::Vector2D<float>);
@@ -48,6 +50,8 @@ namespace PGame {
         bool isMovable(void);
         void setMovable(void);
         void clearMovable(void);
+        virtual bool isColliding(std::vector<GameObject*> c, std::vector<GameObject>::size_type i) { return false; }
+        virtual void resolveCollisions(std::vector<GameObject*> c, std::vector<GameObject>::size_type i) { }
         virtual void inputController(const Uint8*);
         virtual void move(double);
         virtual void render(void);
@@ -56,6 +60,7 @@ namespace PGame {
     private:
         std::string _tag = "";
         std::string _name = "";
+        std::string _body_type = "none";
         bool _renderable = false;
         bool _movable = false;
         PVector2D::Vector2D<float> _position = PVector2D::Vector2D<float>(0.0,0.0);

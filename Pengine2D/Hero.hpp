@@ -11,8 +11,8 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <vector>
 #include "Sprite.hpp"
-
 #include "GameObject.hpp"
 #include "Texture.hpp"
 #include "Scene.hpp"
@@ -28,6 +28,8 @@ namespace PGame {
         void inputController(const Uint8*);
         void render(void);
         void move(double);
+        bool isColliding(std::vector<GameObject*>, std::vector<GameObject>::size_type);
+        void resolveCollisions(std::vector<GameObject*>, std::vector<GameObject>::size_type);
 
         bool setTextureForState (std::string, std::string);
 

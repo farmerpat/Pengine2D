@@ -35,6 +35,7 @@ namespace PGame {
         // virtual void render(void); ??
         void render(void);
         void move(double);
+        void handleCollisions(void);
         void applyDragAndGravity(double);
         // ?
         // the idea would be that

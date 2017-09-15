@@ -96,6 +96,17 @@ namespace PGame {
         }
     }
 
+    bool Hero::isColliding(std::vector<GameObject*> gos, std::vector<GameObject>::size_type i) {
+        bool colliding = false;
+
+        return colliding;
+    }
+
+    void Hero::resolveCollisions (std::vector<GameObject*> gos, std::vector<GameObject>::size_type i) {
+        std::vector<GameObject*> collidingOthers = std::vector<GameObject*>();
+
+    }
+
     void Hero::render (void) {
         this->updateActiveTexture();
 

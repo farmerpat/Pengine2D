@@ -46,6 +46,17 @@ namespace  PGame {
         this->_name = newName;
     }
 
+    std::string GameObject::getBodyType (void) {
+        return this->_body_type;
+    }
+
+    void GameObject::setBodyType (std::string bt) {
+        if (bt == "none" || bt == "static" || bt == "kinematic") {
+            this->_body_type = bt;
+
+        }
+    }
+
     PVector2D::Vector2D<float> GameObject::getPos () {
         return this->_position;
     }

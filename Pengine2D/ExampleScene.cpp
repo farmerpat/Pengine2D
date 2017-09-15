@@ -27,6 +27,7 @@ namespace PGame {
 
         hero->setTextureForState("test_img/slug_right.png", "non_animated_right");
         hero->setTextureForState("test_img/slug_left.png", "non_animated_left");
+        hero->setBodyType("kinematic");
 
         this->addGameObject(hero);
 
@@ -46,6 +47,7 @@ namespace PGame {
         platform->setColor(platformColor);
         platform->initHitBox();
         platform->setShowHitBox();
+        platform->setBodyType("static");
 
         this->addGameObject(platform);
     }

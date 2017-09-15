@@ -73,6 +73,17 @@ namespace  PGame {
         }
     }
 
+    void Scene::handleCollisions (void) {
+        for (std::vector<GameObject>::size_type i = 0; i < this->_gameObjects.size(); i++) {
+            if (this->_gameObjects[i]->getBodyType() == "kinematic") {
+                if (this->_gameObjects[i]->isColliding(this->_gameObjects, i)) {
+                    this->_gameObjects[i]->resolveCollisions(this->_gameObjects, i);
+
+                }
+            }
+        }
+    }
+
     void Scene::applyDragAndGravity (double dt) {
         float xTolerance = 0.01f;
         float xDrag = 0.20f;
