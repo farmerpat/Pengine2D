@@ -81,6 +81,28 @@ namespace  PGame {
         return this->_parentScene;
     }
 
+    bool GameObject::hasHitBox (void) {
+        bool pred = false;
+
+        if (this->getHitBox() != NULL) {
+            pred = true;
+        }
+
+        return pred;
+    }
+
+    void GameObject::setShowHitBox (void) {
+        this->_show_hitbox = true;
+    }
+
+    void GameObject::clearShowHitBox (void) {
+        this->_show_hitbox = false;
+    }
+
+    bool GameObject::getShowHitBox (void) {
+        return this->_show_hitbox;
+    }
+
     HitBox *GameObject::getHitBox (void) {
         return this->_hitbox;
     }

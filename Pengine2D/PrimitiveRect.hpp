@@ -30,12 +30,9 @@ namespace PGame {
         // just for the hitbox members and some kind of overridable
         // resolveCollisions function
         void initHitBox(void);
-        void setShowHitBox(void);
-        void clearShowHitBox(void);
 
     private:
         SDL_Rect *_rect = NULL;
-        bool _show_hitbox = false;
         SDL_Color *_color = NULL;
 
     };

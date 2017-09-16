@@ -59,36 +59,16 @@ namespace PGame {
         return this->_texture;
     }
 
-    // the following HitBox functions
-    // should be moved to GameObject
-    bool Sprite::hasHitBox (void) {
-        bool pred = false;
-
-        if (this->getHitBox() != NULL) {
-            pred = true;
-        }
-
-        return pred;
-    }
-
     void Sprite::initHitBox (float w, float h) {
         HitBox *hb = new HitBox(this->getPos().getX(), this->getPos().getY(), w, h);
 
         this->setHitBox(hb);
     }
 
-    void Sprite::setShowHitBox (void) {
-        this->_show_hitbox = true;
-    }
-
-    void Sprite::clearShowHitBox (void) {
-        this->_show_hitbox = false;
-    }
-
     void Sprite::render (void) {
         this->_texture.render(this->getPos().getX(), this->getPos().getY());
 
-        if (this->_show_hitbox && this->getHitBox() != NULL) {
+        if (this->getShowHitBox() && this->getHitBox() != NULL) {
             SDL_Renderer *renderer = this->getTexture().getTargetRenderer();
 
             if (renderer != NULL) {

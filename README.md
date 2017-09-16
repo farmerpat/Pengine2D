@@ -21,8 +21,6 @@ Notes
 Short\-term TODO
 ===============
 
-* move hasHitBox, initHitBox, setShowHitBox, clearShowHitBox, _show_hitbox, etc from
-Sprite and PrimitiveRect to GameObject
 * add a render method to HitBox and use it in PrimitiveRect and Sprite
 * control frame rate
 * create GameObject subclass for Background

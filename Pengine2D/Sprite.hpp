@@ -26,12 +26,7 @@ namespace PGame {
         Sprite(std::string, std::string, PGame::Scene*);
 
         PVector2D::Vector2D<float> *getVelocity();
-
-        bool hasHitBox(void);
         void initHitBox (float, float);
-        void setShowHitBox(void);
-        void clearShowHitBox(void);
-
         void setVelocity(PVector2D::Vector2D<float>);
         virtual void inputController(const Uint8*);
         void move(double);
@@ -43,7 +38,6 @@ namespace PGame {
         PVector2D::Vector2D<float> *_velocity = new PVector2D::Vector2D<float>(0.0,0.0);
         std::string _texture_png_path = "";
         PTexture::Texture _texture;
-        bool _show_hitbox = false;
 
     };
 }

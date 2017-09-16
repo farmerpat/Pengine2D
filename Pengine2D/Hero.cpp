@@ -129,7 +129,7 @@ namespace PGame {
             this->_active_texture->render(this->getPos().getX(), this->getPos().getY());
         }
 
-        if (this->_show_hitbox && this->getHitBox() != NULL) {
+        if (this->getShowHitBox() && this->getHitBox() != NULL) {
             SDL_Renderer *renderer = this->getTexture().getTargetRenderer();
 
             if (renderer != NULL) {
