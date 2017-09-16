@@ -26,10 +26,9 @@ namespace PGame {
         SDL_Color *getColor(void);
         void setColor(SDL_Color*);
         void updatePosition(void);
+        bool isCollidingWith (HitBox*);
 
     private:
-        //float _width = 0.0;
-        //float _height = 0.0;
         SDL_Rect *_rect = NULL;
         SDL_Color *_color = NULL;
 

@@ -21,7 +21,7 @@ namespace PGame {
     void ExampleScene::init (void) {
         Hero *hero = new Hero("example_sprite", "test_img/slug_right.png", this);
 
-        hero->setPos(PVector2D::Vector2D<float>(100.0,100.0));
+        hero->setPos(PVector2D::Vector2D<float>(50.0, 200.0));
         hero->initHitBox(32.0, 32.0);
         hero->setShowHitBox();
 

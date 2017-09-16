@@ -81,6 +81,14 @@ namespace  PGame {
         return this->_parentScene;
     }
 
+    HitBox *GameObject::getHitBox (void) {
+        return this->_hitbox;
+    }
+
+    void GameObject::setHitBox (HitBox *hb) {
+        this->_hitbox = hb;
+    }
+
     bool GameObject::isRenderable (void) {
         return this->_renderable;
     }

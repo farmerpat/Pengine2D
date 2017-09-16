@@ -197,7 +197,7 @@ namespace PGame {
 
             this->_activeScene->move(dt);
 
-            this->_activeScene->handleCollisions();
+            this->_activeScene->resolveCollisions();
 
             t.start();
             this->_activeScene->render();

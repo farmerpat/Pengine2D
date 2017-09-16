@@ -128,4 +128,39 @@ namespace PGame {
     void HitBox::setColor(SDL_Color *c) {
         this->_color = c;
     }
+
+    bool HitBox::isCollidingWith (HitBox *other) {
+        bool colliding = true;
+
+        if (this->getRect() == NULL || other->getRect() == NULL) {
+            colliding = false;
+
+        } else {
+            int myLeft = this->getRect()->x;
+            int myRight = myLeft + this->getRect()->w;
+            int myTop = this->getRect()->y;
+            int myBot = myTop + this->getRect()->h;
+
+            int theirLeft = other->getRect()->x;
+            int theirRight = theirLeft + other->getRect()->w;
+            int theirTop = other->getRect()->y;
+            int theirBot = theirTop + other->getRect()->h;
+
+            if (myBot <= theirTop) {
+                colliding = false;
+
+            } else if (myTop >= theirBot) {
+                colliding = false;
+
+            } else if (myRight <= theirLeft) {
+                colliding = false;
+
+            } else if (myLeft >= theirRight) {
+                colliding = false;
+
+            }
+        }
+
+        return colliding;
+    }
 }

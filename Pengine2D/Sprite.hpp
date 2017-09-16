@@ -27,7 +27,6 @@ namespace PGame {
 
         PVector2D::Vector2D<float> *getVelocity();
 
-        HitBox *getHitBox(void);
         bool hasHitBox(void);
         void initHitBox (float, float);
         void setShowHitBox(void);
@@ -44,7 +43,6 @@ namespace PGame {
         PVector2D::Vector2D<float> *_velocity = new PVector2D::Vector2D<float>(0.0,0.0);
         std::string _texture_png_path = "";
         PTexture::Texture _texture;
-        HitBox *_hitbox = NULL;
         bool _show_hitbox = false;
 
     };

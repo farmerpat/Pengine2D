@@ -73,10 +73,11 @@ namespace  PGame {
         }
     }
 
-    void Scene::handleCollisions (void) {
+    void Scene::resolveCollisions (void) {
         for (std::vector<GameObject>::size_type i = 0; i < this->_gameObjects.size(); i++) {
             if (this->_gameObjects[i]->getBodyType() == "kinematic") {
                 if (this->_gameObjects[i]->isColliding(this->_gameObjects, i)) {
+                    printf("das collision\n");
                     this->_gameObjects[i]->resolveCollisions(this->_gameObjects, i);
 
                 }

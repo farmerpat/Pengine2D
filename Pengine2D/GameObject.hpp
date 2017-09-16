@@ -22,6 +22,7 @@
 
 namespace PGame {
     class Scene;
+    class HitBox;
 
     class GameObject {
     public:
@@ -50,6 +51,8 @@ namespace PGame {
         bool isMovable(void);
         void setMovable(void);
         void clearMovable(void);
+        HitBox *getHitBox(void);
+        void setHitBox(HitBox*);
         virtual bool isColliding(std::vector<GameObject*> c, std::vector<GameObject>::size_type i) { return false; }
         virtual void resolveCollisions(std::vector<GameObject*> c, std::vector<GameObject>::size_type i) { }
         virtual void inputController(const Uint8*);
@@ -66,6 +69,7 @@ namespace PGame {
         PVector2D::Vector2D<float> _position = PVector2D::Vector2D<float>(0.0,0.0);
         PVector2D::Vector2D<float> *_velocity = NULL;
         Scene *_parentScene;
+        HitBox *_hitbox = NULL;
 
     };
 }

@@ -99,6 +99,21 @@ namespace PGame {
     bool Hero::isColliding(std::vector<GameObject*> gos, std::vector<GameObject>::size_type i) {
         bool colliding = false;
 
+        for (std::vector<GameObject>::size_type j = 0; j < gos.size(); j++) {
+            if (j == i) {
+                continue;
+
+            } else {
+                if (gos[j]->getBodyType() == "kinematic" || gos[j]->getBodyType() == "static") {
+                    if (this->getHitBox()->isCollidingWith(gos[j]->getHitBox())) {
+                        colliding = true;
+                        break;
+
+                    }
+                }
+            }
+        }
+
         return colliding;
     }
 
@@ -114,7 +129,7 @@ namespace PGame {
             this->_active_texture->render(this->getPos().getX(), this->getPos().getY());
         }
 
-        if (this->_show_hitbox && this->_hitbox != NULL) {
+        if (this->_show_hitbox && this->getHitBox() != NULL) {
             SDL_Renderer *renderer = this->getTexture().getTargetRenderer();
 
             if (renderer != NULL) {

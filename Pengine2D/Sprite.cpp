@@ -59,14 +59,12 @@ namespace PGame {
         return this->_texture;
     }
 
-    HitBox *Sprite::getHitBox (void) {
-        return this->_hitbox;
-    }
-
+    // the following HitBox functions
+    // should be moved to GameObject
     bool Sprite::hasHitBox (void) {
         bool pred = false;
 
-        if (this->_hitbox != NULL) {
+        if (this->getHitBox() != NULL) {
             pred = true;
         }
 
@@ -76,7 +74,7 @@ namespace PGame {
     void Sprite::initHitBox (float w, float h) {
         HitBox *hb = new HitBox(this->getPos().getX(), this->getPos().getY(), w, h);
 
-        this->_hitbox = hb;
+        this->setHitBox(hb);
     }
 
     void Sprite::setShowHitBox (void) {
@@ -90,7 +88,7 @@ namespace PGame {
     void Sprite::render (void) {
         this->_texture.render(this->getPos().getX(), this->getPos().getY());
 
-        if (this->_show_hitbox && this->_hitbox != NULL) {
+        if (this->_show_hitbox && this->getHitBox() != NULL) {
             SDL_Renderer *renderer = this->getTexture().getTargetRenderer();
 
             if (renderer != NULL) {
@@ -118,9 +116,9 @@ namespace PGame {
         this->setXPos(newSpriteXPos);
 
         if (this->hasHitBox()) {
-            float newHitBoxXPos = this->_hitbox->getPos().getX() + deltaX;
-            this->_hitbox->setXPos(newHitBoxXPos);
-            this->_hitbox->updatePosition();
+            float newHitBoxXPos = this->getHitBox()->getPos().getX() + deltaX;
+            this->getHitBox()->setXPos(newHitBoxXPos);
+            this->getHitBox()->updatePosition();
         }
 
         float deltaY = this->getVelocity()->getY() * (dt / 1000.0f);
@@ -128,9 +126,9 @@ namespace PGame {
         this->setYPos(newSpriteYPos);
 
         if (this->hasHitBox()) {
-            float newHitBoxYPos = this->_hitbox->getPos().getY() + deltaY;
-            this->_hitbox->setYPos(newHitBoxYPos);
-            this->_hitbox->updatePosition();
+            float newHitBoxYPos = this->getHitBox()->getPos().getY() + deltaY;
+            this->getHitBox()->setYPos(newHitBoxYPos);
+            this->getHitBox()->updatePosition();
 
         }
     }

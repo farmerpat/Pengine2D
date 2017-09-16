@@ -57,7 +57,7 @@ namespace PGame {
                     SDL_RenderFillRect(r, this->_rect);
                 }
 
-                if (this->_show_hitbox && this->_hitbox != NULL) {
+                if (this->_show_hitbox && this->getHitBox() != NULL) {
 
                     SDL_Color *hbColor = this->getHitBox()->getColor();
 
@@ -78,7 +78,7 @@ namespace PGame {
 
     void PrimitiveRect::initHitBox (void) {
         if (this->_rect != NULL) {
-            this->_hitbox = new HitBox(this->_rect);
+            this->setHitBox(new HitBox(this->_rect));
 
         }
     }
@@ -89,11 +89,6 @@ namespace PGame {
 
     void PrimitiveRect::clearShowHitBox (void) {
         this->_show_hitbox = false;
-
-    }
-
-    HitBox *PrimitiveRect::getHitBox (void) {
-        return this->_hitbox;
 
     }
 }
