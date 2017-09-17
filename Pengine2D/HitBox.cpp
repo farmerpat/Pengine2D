@@ -163,4 +163,65 @@ namespace PGame {
 
         return colliding;
     }
+
+    std::string HitBox::getCollisionLocation (HitBox *other) {
+        // if this gets called, the collision can be taken for granted
+        std::string collisionLocation = "";
+
+        /*
+            //myBottomTheirTop
+            //myBottomRightCornerTheirTopLeftCorner
+            //myBottomLeftCornerTheirTopRightCorner
+            //myTopTheirBottom
+            //myTopRightCornerTheirBottomLeftCorner
+            //myTopLeftCornerTheirBottomRightCorner
+
+            //myRightTheirLeft
+            //myLeftTheirRight
+         */
+
+        SDL_Rect *myRect = this->getRect();
+        SDL_Rect *theirRect = other->getRect();
+
+        int myLeft = myRect->x;
+        int myRight = myLeft + myRect->w;
+        int myTop = myRect->y;
+        int myBot = myTop + myRect->h;
+
+        int theirLeft = theirRect->x;
+        int theirRight = theirLeft + theirRect->w;
+        int theirTop = theirRect->y;
+        int theirBot = theirTop + theirRect->h;
+
+        // these conditions aren't stringent enough
+        if (myBot > theirTop) {
+            collisionLocation = "myBottom";
+
+            if (myRight > theirLeft) {
+                collisionLocation = "myBottomRightCornerTheirTopLeftCorner";
+
+            } else if (myLeft < theirRight) {
+                collisionLocation = "myBottomLeftCornerTheirTopRightCorner";
+
+            }
+        } else if (myTop < theirBot) {
+            collisionLocation = "myTopTheirBottom";
+
+            if (myRight > theirLeft) {
+                collisionLocation = "myTopRightCornerTheirBottomLeftCorner";
+
+            } else if (myLeft < theirRight) {
+                collisionLocation = "myTopLeftCornerTheirBottomRightCorner";
+
+            }
+        } else if (myRight > theirLeft) {
+            collisionLocation = "myRightTheirLeft";
+
+        } else if (myLeft < theirRight) {
+            collisionLocation = "myLeftTheirRight";
+
+        }
+
+        return collisionLocation;
+    }
 }

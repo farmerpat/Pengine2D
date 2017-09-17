@@ -10,6 +10,7 @@
 #define HitBox_hpp
 
 #include <stdio.h>
+#include <string>
 #include "GameObject.hpp"
 
 namespace PGame {
@@ -27,6 +28,7 @@ namespace PGame {
         void setColor(SDL_Color*);
         void updatePosition(void);
         bool isCollidingWith (HitBox*);
+        std::string getCollisionLocation(HitBox*);
 
     private:
         SDL_Rect *_rect = NULL;

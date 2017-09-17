@@ -117,9 +117,88 @@ namespace PGame {
         return colliding;
     }
 
+    // can probably avoid calling isColliding b/c we could just
+    // call resolveCollisions instead.  it wouldn't do anything if
+    // there weren't any collisions to resolve
     void Hero::resolveCollisions (std::vector<GameObject*> gos, std::vector<GameObject>::size_type i) {
         std::vector<GameObject*> collidingOthers = std::vector<GameObject*>();
 
+        for (std::vector<GameObject>::size_type j = 0; j < gos.size(); j++) {
+            if (j == i) {
+                continue;
+
+            } else {
+                if (gos[j]->getBodyType() == "kinematic" || gos[j]->getBodyType() == "static") {
+                    if (this->getHitBox()->isCollidingWith(gos[j]->getHitBox())) {
+                        collidingOthers.push_back(gos[j]);
+
+                    }
+                }
+            }
+        }
+
+        if (collidingOthers.size() > 0) {
+            // instead of pushing and interating again, its faster
+            // to just resolve the collision in the loop above.
+            // this probably makes debugging easier tho
+            for (std::vector<GameObject>::size_type j = 0; j < collidingOthers.size(); j++) {
+                // we know Hero's velocity, and the vecocity in each of collidingOthers.
+                // finding the normal and sliding where applicable and so forth
+                // probably makes sense ultimately.
+                // for now, there is only one use case.. Hero coming in from the left.
+                // change is x velocity and stfu for now
+                HitBox *myHitBox = this->getHitBox();
+                HitBox *theirHitBox = collidingOthers[j]->getHitBox();
+
+                std::string collisionLocation = myHitBox->getCollisionLocation(theirHitBox);
+
+                if (collisionLocation == "myRightTheirLeft") {
+                    printf("myRightTheirLeft\n");
+
+                } else if (collisionLocation == "myLeftTheirRight") {
+                    printf("myLeftTheirRight\n");
+
+                } else if (collisionLocation == "myTopTheirBottom") {
+                    printf("myTopTheirBottom\n");
+
+                } else if (collisionLocation == "myBottomTheirTop") {
+                    printf("myBottomTheirTop\n");
+
+                } else if (collisionLocation == "myTopRightCornerTheirBottomLeftCorner") {
+                    printf("myTopRightCornerTheirBottomLeftCorner\n");
+
+                } else if (collisionLocation == "myBottomRightCornerTheirTopLeftCorner") {
+                    printf("myBottomRightCornerTheirTopLeftCorner\n");
+
+                } else if (collisionLocation == "myTopLeftCornerTheirBottomRightCorner") {
+                    printf("myTopLeftCornerTheirBottomRightCorner\n");
+
+                } else if (collisionLocation == "myBottomLeftCornerTheirTopRightCorner") {
+                    printf("myBottomLeftCornerTheirTopRightCorner\n");
+
+                } else {
+                    printf ("unrecognized collision. derp\n");
+
+                }
+
+
+
+                PVector2D::Vector2D<float> *currentVel = this->getVelocity();
+
+                // consider locking player movement along axes for when
+                // we latch onto a wall or surface
+                // it can only be relased by jump btn
+                // and only enaged with lock btn, excluding normal ground
+                // try set pos away from it first...
+                // doing this requires that we update the hitbox position too though...
+                PVector2D::Vector2D<float> pos = this->getPos();
+                pos.setX(pos.getX() - 1.0);
+                //this->setPos(pos);
+                currentVel->setX(-50.0);
+                //currentVel->setX(0);
+
+            }
+        }
     }
 
     void Hero::render (void) {
