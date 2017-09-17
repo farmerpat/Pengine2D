@@ -49,10 +49,21 @@ namespace PGame {
         float newY = 0.0;
 
         if (keystates[SDL_SCANCODE_W]) {
+            // TESTING ONLY. JUMP WILL HANDLE THIS
             // move up
             newY = this->_velocity->getY() - this->_speed;
             if (newY < -this->_maxSpeed) {
                 newY = -this->_maxSpeed;
+
+            }
+
+            this->_velocity->setY(newY);
+        } else if (keystates[SDL_SCANCODE_S]) {
+            // TESTING ONLY. GRAVITY WILL HANDLE THIS
+            // move down
+            newY = this->_velocity->getY() + this->_speed;
+            if (newY > this->_maxSpeed) {
+                newY = this->_maxSpeed;
 
             }
 
@@ -147,41 +158,10 @@ namespace PGame {
                 // probably makes sense ultimately.
                 // for now, there is only one use case.. Hero coming in from the left.
                 // change is x velocity and stfu for now
-                HitBox *myHitBox = this->getHitBox();
-                HitBox *theirHitBox = collidingOthers[j]->getHitBox();
 
-                std::string collisionLocation = myHitBox->getCollisionLocation(theirHitBox);
-
-                if (collisionLocation == "myRightTheirLeft") {
-                    printf("myRightTheirLeft\n");
-
-                } else if (collisionLocation == "myLeftTheirRight") {
-                    printf("myLeftTheirRight\n");
-
-                } else if (collisionLocation == "myTopTheirBottom") {
-                    printf("myTopTheirBottom\n");
-
-                } else if (collisionLocation == "myBottomTheirTop") {
-                    printf("myBottomTheirTop\n");
-
-                } else if (collisionLocation == "myTopRightCornerTheirBottomLeftCorner") {
-                    printf("myTopRightCornerTheirBottomLeftCorner\n");
-
-                } else if (collisionLocation == "myBottomRightCornerTheirTopLeftCorner") {
-                    printf("myBottomRightCornerTheirTopLeftCorner\n");
-
-                } else if (collisionLocation == "myTopLeftCornerTheirBottomRightCorner") {
-                    printf("myTopLeftCornerTheirBottomRightCorner\n");
-
-                } else if (collisionLocation == "myBottomLeftCornerTheirTopRightCorner") {
-                    printf("myBottomLeftCornerTheirTopRightCorner\n");
-
-                } else {
-                    printf ("unrecognized collision. derp\n");
-
-                }
-
-
+                // what if we don't give a shit about bouncing off of walls and static things
+                // what if we just cap zero the velocity in the x direction for a wall
+                // and the y direction for the ground (a la smw)?
 
                 PVector2D::Vector2D<float> *currentVel = this->getVelocity();
 
@@ -192,11 +172,65 @@ namespace PGame {
                 // try set pos away from it first...
                 // doing this requires that we update the hitbox position too though...
                 PVector2D::Vector2D<float> pos = this->getPos();
-                pos.setX(pos.getX() - 1.0);
                 //this->setPos(pos);
-                currentVel->setX(-50.0);
-                //currentVel->setX(0);
 
+                HitBox *myHitBox = this->getHitBox();
+                HitBox *theirHitBox = collidingOthers[j]->getHitBox();
+
+                std::string collisionLocation = myHitBox->getCollisionLocation(theirHitBox);
+
+                if (collisionLocation == "right") {
+                    printf("right\n");
+                    currentVel->setX(0);
+                    pos.setX(pos.getX() - 1.0);
+                    this->setPos(pos);
+                    this->getHitBox()->setPos(pos);
+                    this->getHitBox()->updatePosition();
+
+                } else if (collisionLocation == "left") {
+                    printf("left\n");
+                    currentVel->setX(0);
+                    pos.setX(pos.getX() + 1.0);
+                    this->setPos(pos);
+                    this->getHitBox()->setPos(pos);
+                    this->getHitBox()->updatePosition();
+
+                } else if (collisionLocation == "bot") {
+                    printf("bot\n");
+                    currentVel->setY(0);
+                    pos.setY(pos.getY() - 1.0);
+                    this->setPos(pos);
+                    this->getHitBox()->setPos(pos);
+                    this->getHitBox()->updatePosition();
+
+                } else if (collisionLocation == "top") {
+                    printf("top\n");
+                    currentVel->setY(0);
+                    pos.setY(pos.getY() + 1.0);
+                    this->setPos(pos);
+                    this->getHitBox()->setPos(pos);
+                    this->getHitBox()->updatePosition();
+
+                } else if (collisionLocation == "botright") {
+                    printf("botright\n");
+                    // TODO: give preference
+
+                } else if (collisionLocation == "botleft") {
+                    printf("botleft\n");
+                    // TODO: give preference
+
+                } else if (collisionLocation == "topright") {
+                    printf("topright\n");
+                    // TODO: give preference
+
+                } else if (collisionLocation == "topleft") {
+                    printf("topleft\n");
+                    // TODO: give preference
+
+                } else {
+                    printf ("unrecognized collision. derp\n");
+
+                }
             }
         }
     }

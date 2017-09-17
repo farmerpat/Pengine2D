@@ -88,10 +88,15 @@ namespace  PGame {
     void Scene::applyDragAndGravity (double dt) {
         float xTolerance = 0.01f;
         float xDrag = 0.20f;
+        // for testing for now.  downward drag only in game probably.
+        // the amount of drag applied will depend on whether or not jump is held
+        float yDrag = 0.20f;
+        float yTolerance = 0.01f;
 
         // if there's no button being pressed, apply drag to the player,
         // so he eventually stops
         // need a Player:Sprite class...
+        // OR JUST CHECK THE TAG
         for (std::vector<GameObject>::size_type i = 0; i < this->_gameObjects.size(); i++) {
             if (this->_gameObjects[i]->isMovable()) {
                 PVector2D::Vector2D<float> *vel = this->_gameObjects[i]->getVelocity();
@@ -125,6 +130,31 @@ namespace  PGame {
                 }
 
                 this->_gameObjects[i]->getVelocity()->setX(xVel);
+
+                if (yVel > 0) {
+                    if (yVel < yTolerance) {
+                        yVel = 0.0f;
+                    } else if (yVel - (yDrag * dt) < 0) {
+                        yVel = 0.0f;
+
+                    } else {
+                        yVel -= (yDrag * dt);
+
+                    }
+                } else if (yVel < 0) {
+                    if (yVel > -yTolerance) {
+                        yVel = 0.0f;
+
+                    } else if (yVel + (yDrag * dt) > 0) {
+                        yVel = 0.0f;
+
+                    } else {
+                        yVel += (yDrag * dt);
+
+                    }
+                }
+
+                this->_gameObjects[i]->getVelocity()->setY(yVel);
                 // apply gravity to y if velocity is negative
                 // this only makes sense to do when there is
                 // something to collide with under the player

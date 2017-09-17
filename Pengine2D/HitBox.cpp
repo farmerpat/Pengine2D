@@ -167,21 +167,20 @@ namespace PGame {
     std::string HitBox::getCollisionLocation (HitBox *other) {
         // if this gets called, the collision can be taken for granted
         std::string collisionLocation = "";
-
-        /*
-            //myBottomTheirTop
-            //myBottomRightCornerTheirTopLeftCorner
-            //myBottomLeftCornerTheirTopRightCorner
-            //myTopTheirBottom
-            //myTopRightCornerTheirBottomLeftCorner
-            //myTopLeftCornerTheirBottomRightCorner
-
-            //myRightTheirLeft
-            //myLeftTheirRight
-         */
-
         SDL_Rect *myRect = this->getRect();
         SDL_Rect *theirRect = other->getRect();
+
+        int rightTally = 0;
+        int leftTally = 0;
+        int topTally = 0;
+        int botTally = 0;
+
+        // should these all be floats?
+        // we can have float positions,
+        // because postion is updated as a function of dt,
+        // which is rarely int...
+        int myXPos = myRect->x;
+        int myYPos = myRect->y;
 
         int myLeft = myRect->x;
         int myRight = myLeft + myRect->w;
@@ -193,33 +192,129 @@ namespace PGame {
         int theirTop = theirRect->y;
         int theirBot = theirTop + theirRect->h;
 
-        // these conditions aren't stringent enough
-        if (myBot > theirTop) {
-            collisionLocation = "myBottom";
+        // check right side
+        // ultimately allow specifying width and height plz
+        int x = myXPos + 31;
+        // if myXPos is also > theirLeft, counting these doesn't make sense
+        if (myXPos < theirLeft) {
+            for (int y = myYPos; y < (myYPos + 32); y++) {
+                // we check each pixel at (x,y)
+                // if the pixel is inside other, rightTally++;
+                if (x >= theirLeft) {
+                    if ((y >= theirTop) && (y <= theirBot)) {
+                        rightTally++;
 
-            if (myRight > theirLeft) {
-                collisionLocation = "myBottomRightCornerTheirTopLeftCorner";
+                    }
+                }
+            }
+        }
 
-            } else if (myLeft < theirRight) {
-                collisionLocation = "myBottomLeftCornerTheirTopRightCorner";
+        // check left side
+        // WE GET THE SAME RESULTS, BECAUSE WE ARE IGNORING WHERE MYxpOS+31 IS.
+        // IF MYxpOS+31 IS ALSO LESS THAN THEIR RIGHT, COUNTING THESE DOESN'T MAKE ANY SENSE
+        x = myXPos;
+        if ((myXPos+31) > theirRight) {
+            for (int y = myYPos; y < (myYPos + 32); y++) {
+                if (x <= theirRight) {
+                    if ((y >= theirTop) && (y <= theirBot)) {
+                        leftTally++;
+
+                    }
+                }
+            }
+        }
+
+        // check bottom
+        int y = myYPos + 31;
+        if (myYPos < theirTop) {
+            for (int x = myXPos; x < (myXPos + 32); x++) {
+                if (y >= theirTop) {
+                    if ((x >= theirLeft) && (x <= theirRight)) {
+                        botTally++;
+
+                    }
+                }
+            }
+        }
+
+        // check top
+        y = myYPos;
+        if ((myYPos + 31) > theirBot) {
+            for (int x = myXPos; x < (myXPos + 32); x++) {
+                if (y <= theirBot) {
+                    if ((x >= theirLeft) && (x <= theirRight)) {
+                        topTally++;
+
+                    }
+                }
+            }
+        }
+
+        struct CollisionTally {
+            int count;
+            std::string name;
+            CollisionTally(int c, std::string n) : count(c), name(n) { }
+        };
+
+        struct greater_than_tally {
+            inline bool operator() (const CollisionTally &s1, const CollisionTally &s2) {
+                return s1.count > s2.count;
 
             }
-        } else if (myTop < theirBot) {
-            collisionLocation = "myTopTheirBottom";
+        };
 
-            if (myRight > theirLeft) {
-                collisionLocation = "myTopRightCornerTheirBottomLeftCorner";
+        std::vector <CollisionTally> tallies;
+        tallies.push_back(CollisionTally(rightTally, "right"));
+        tallies.push_back(CollisionTally(leftTally, "left"));
+        tallies.push_back(CollisionTally(botTally, "bot"));
+        tallies.push_back(CollisionTally(topTally, "top"));
+        std::sort(tallies.begin(), tallies.end(), greater_than_tally());
 
-            } else if (myLeft < theirRight) {
-                collisionLocation = "myTopLeftCornerTheirBottomRightCorner";
+        if (tallies[0].name == "right") {
+            collisionLocation = "right";
+            if (tallies[1].count == tallies[0].count) {
+                if (tallies[1].name == "top") {
+                    collisionLocation = "topright";
 
+                } else if (tallies[1].name == "bot") {
+                    collisionLocation = "botright";
+
+                }
             }
-        } else if (myRight > theirLeft) {
-            collisionLocation = "myRightTheirLeft";
+        } else if (tallies[0].name == "left") {
+            collisionLocation = "left";
+            if (tallies[1].count == tallies[0].count) {
+                if (tallies[1].name == "top") {
+                    collisionLocation = "topleft";
 
-        } else if (myLeft < theirRight) {
-            collisionLocation = "myLeftTheirRight";
+                } else if (tallies[1].name == "bot") {
+                    collisionLocation = "botleft";
 
+                }
+            }
+        } else if (tallies[0].name == "bot") {
+            collisionLocation = "bot";
+            if (tallies[1].count == tallies[0].count) {
+                if (tallies[1].name == "right") {
+                    collisionLocation = "botright";
+
+                } else if (tallies[1].name == "left") {
+                    collisionLocation = "botleft";
+
+                }
+            }
+        } else if (tallies[0].name == "top") {
+            collisionLocation = "top";
+
+            if (tallies[1].count == tallies[0].count) {
+                if (tallies[1].name == "right") {
+                    collisionLocation = "topright";
+
+                } else if (tallies[1].name == "left") {
+                    collisionLocation = "topleft";
+
+                }
+            }
         }
 
         return collisionLocation;
