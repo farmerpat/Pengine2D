@@ -18,6 +18,7 @@
 #include <SDL2_image/SDL_image.h>
 #include <SDL2_mixer/SDL_mixer.h>
 #include "GameObject.hpp"
+#include "Camera.hpp"
 
 namespace PGame {
     class Game;
@@ -67,6 +68,7 @@ namespace PGame {
         std::vector<GameObject*> _gameObjects;
         SDL_Surface *_surface = NULL;
         Game *_parentGame = NULL;
+        Camera *_camera = NULL;
 
     };
 }

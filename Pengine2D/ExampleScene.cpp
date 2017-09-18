@@ -11,6 +11,7 @@
 #include "Game.hpp"
 #include "Hero.hpp"
 #include "PrimitiveRect.hpp"
+#include "Camera.hpp"
 #include <stdio.h>
 
 namespace PGame {
