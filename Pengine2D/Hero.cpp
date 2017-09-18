@@ -180,7 +180,7 @@ namespace PGame {
                 std::string collisionLocation = myHitBox->getCollisionLocation(theirHitBox);
 
                 if (collisionLocation == "right") {
-                    printf("right\n");
+                    //printf("right\n");
                     currentVel->setX(0);
                     pos.setX(pos.getX() - 1.0);
                     this->setPos(pos);
@@ -188,7 +188,7 @@ namespace PGame {
                     this->getHitBox()->updatePosition();
 
                 } else if (collisionLocation == "left") {
-                    printf("left\n");
+                    //printf("left\n");
                     currentVel->setX(0);
                     pos.setX(pos.getX() + 1.0);
                     this->setPos(pos);
@@ -196,7 +196,7 @@ namespace PGame {
                     this->getHitBox()->updatePosition();
 
                 } else if (collisionLocation == "bot") {
-                    printf("bot\n");
+                    //printf("bot\n");
                     currentVel->setY(0);
                     pos.setY(pos.getY() - 1.0);
                     this->setPos(pos);
@@ -204,7 +204,7 @@ namespace PGame {
                     this->getHitBox()->updatePosition();
 
                 } else if (collisionLocation == "top") {
-                    printf("top\n");
+                    //printf("top\n");
                     currentVel->setY(0);
                     pos.setY(pos.getY() + 1.0);
                     this->setPos(pos);
@@ -212,19 +212,19 @@ namespace PGame {
                     this->getHitBox()->updatePosition();
 
                 } else if (collisionLocation == "botright") {
-                    printf("botright\n");
+                    //printf("botright\n");
                     // TODO: give preference
 
                 } else if (collisionLocation == "botleft") {
-                    printf("botleft\n");
+                    //printf("botleft\n");
                     // TODO: give preference
 
                 } else if (collisionLocation == "topright") {
-                    printf("topright\n");
+                    //printf("topright\n");
                     // TODO: give preference
 
                 } else if (collisionLocation == "topleft") {
-                    printf("topleft\n");
+                    //printf("topleft\n");
                     // TODO: give preference
 
                 } else {
@@ -235,11 +235,29 @@ namespace PGame {
         }
     }
 
-    void Hero::render (void) {
+    void Hero::render (Camera *cam=NULL) {
+        int camOffsetX = 0;
+        int camOffsetY = 0;
+
         this->updateActiveTexture();
 
+        if (cam != NULL) {
+            camOffsetX = cam->getPos().getX();
+            camOffsetY = cam->getPos().getY();
+        }
+
         if (this->_active_texture != NULL) {
-            this->_active_texture->render(this->getPos().getX(), this->getPos().getY());
+            if (cam != NULL) {
+                this->_active_texture->render(
+                    this->getPos().getX() - camOffsetX,
+                    this->getPos().getY() - camOffsetY//,
+                    //cam->getViewPort()
+
+                );
+            } else {
+                this->_active_texture->render(this->getPos().getX() - camOffsetX, this->getPos().getY() - camOffsetY);
+
+            }
         }
 
         if (this->getShowHitBox() && this->getHitBox() != NULL) {
@@ -247,6 +265,7 @@ namespace PGame {
 
             if (renderer != NULL) {
                 SDL_Color *hbColor = this->getHitBox()->getColor();
+                SDL_Rect *hb = this->getHitBox()->getRect();
 
                 if (hbColor == NULL) {
                     hbColor = new SDL_Color;
@@ -256,8 +275,11 @@ namespace PGame {
                     hbColor->a = 0xff;
                 }
 
+                hb->x -= camOffsetX;
+                hb->y -= camOffsetY;
+
                 SDL_SetRenderDrawColor(renderer, hbColor->r, hbColor->g, hbColor->b, hbColor->a);
-                SDL_RenderDrawRect(renderer, this->getHitBox()->getRect());
+                SDL_RenderDrawRect(renderer, hb);
             }
         }
     }

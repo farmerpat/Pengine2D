@@ -39,10 +39,17 @@ namespace PGame {
         this->_color = c;
     }
 
-    void PrimitiveRect::render (void) {
+    void PrimitiveRect::render (Camera *cam=NULL) {
         if (this->getParentScene() != NULL) {
-            SDL_Renderer *r = this->getParentScene()->getParentGame()->getWindowRenderer();
+            int camOffsetX = 0;
+            int camOffsetY = 0;
 
+            if (cam != NULL) {
+                camOffsetX = cam->getPos().getX();
+                camOffsetY = cam->getPos().getY();
+            }
+
+            SDL_Renderer *r = this->getParentScene()->getParentGame()->getWindowRenderer();
 
             if (r != NULL) {
                 if (this->_color != NULL) {
@@ -54,7 +61,17 @@ namespace PGame {
                         this->_color->a
                     );
 
-                    SDL_RenderFillRect(r, this->_rect);
+                    SDL_Rect *offsetRect = new SDL_Rect();
+
+                    offsetRect->x = this->_rect->x;
+                    offsetRect->y = this->_rect->y;
+                    offsetRect->w = this->_rect->w;
+                    offsetRect->h = this->_rect->h;
+
+                    offsetRect->x -= camOffsetX;
+                    offsetRect->y -= camOffsetY;
+
+                    SDL_RenderFillRect(r, offsetRect);
                 }
 
                 if (this->getShowHitBox() && this->getHitBox() != NULL) {

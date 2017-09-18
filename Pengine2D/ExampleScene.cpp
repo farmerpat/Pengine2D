@@ -20,6 +20,9 @@ namespace PGame {
     ExampleScene::ExampleScene (Game *g) : Scene (g) { }
 
     void ExampleScene::init (void) {
+        Camera *camera = new Camera(400, 300);
+        this->setCamera(camera);
+
         Hero *hero = new Hero("example_sprite", "test_img/slug_right.png", this);
 
         hero->setPos(PVector2D::Vector2D<float>(50.0, 200.0));

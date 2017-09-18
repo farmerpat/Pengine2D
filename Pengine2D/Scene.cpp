@@ -54,9 +54,19 @@ namespace  PGame {
         SDL_SetRenderDrawColor(this->_parentGame->getWindowRenderer(), 0xa5, 0xc7, 0xff, 0xff);
         SDL_RenderClear(this->_parentGame->getWindowRenderer());
 
+        /*
+         // you would think this belongs here,
+         // but im not sure that it does...
+        SDL_Rect *previousCamViewPort = new SDL_Rect();
+        SDL_RenderGetClipRect(renderer, previousCamViewPort);
+
+        SDL_RenderSetClipRect(renderer, cam->getViewPort());
+         */
+
         for (std::vector<GameObject>::size_type i = 0; i < this->_gameObjects.size(); i++) {
             if (this->_gameObjects[i]->isRenderable()) {
-                this->_gameObjects[i]->render();
+                //this->_gameObjects[i]->render(NULL);
+                this->_gameObjects[i]->render(this->getCamera());
 
             }
         }
@@ -77,7 +87,6 @@ namespace  PGame {
         for (std::vector<GameObject>::size_type i = 0; i < this->_gameObjects.size(); i++) {
             if (this->_gameObjects[i]->getBodyType() == "kinematic") {
                 if (this->_gameObjects[i]->isColliding(this->_gameObjects, i)) {
-                    printf("das collision\n");
                     this->_gameObjects[i]->resolveCollisions(this->_gameObjects, i);
 
                 }
@@ -161,6 +170,13 @@ namespace  PGame {
 
             }
         }
+    }
+
+    void Scene::setCamera (Camera *c) {
+        this->_camera = c;
+    }
+    Camera *Scene::getCamera (void) {
+        return this->_camera;
     }
 
     void Scene::destroy (void) {

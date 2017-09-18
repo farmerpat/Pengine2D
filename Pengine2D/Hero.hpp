@@ -17,6 +17,7 @@
 #include "Texture.hpp"
 #include "Scene.hpp"
 #include "Game.hpp"
+#include "Camera.hpp"
 
 namespace PGame {
     class Hero: public Sprite {
@@ -26,7 +27,7 @@ namespace PGame {
         Hero(std::string, std::string);
         Hero(std::string, std::string, PGame::Scene*);
         void inputController(const Uint8*);
-        void render(void);
+        void render(Camera*);
         void move(double);
         bool isColliding(std::vector<GameObject*>, std::vector<GameObject>::size_type);
         void resolveCollisions(std::vector<GameObject*>, std::vector<GameObject>::size_type);

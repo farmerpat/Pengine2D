@@ -16,6 +16,7 @@
 #include "Scene.hpp"
 #include "HitBox.hpp"
 #include "Game.hpp"
+#include "Camera.hpp"
 
 namespace PGame {
     class Sprite: public GameObject {
@@ -32,7 +33,7 @@ namespace PGame {
         void move(double);
         bool initTexture(void);
         PTexture::Texture getTexture(void);
-        void render(void);
+        void render(Camera*);
 
     protected:
         PVector2D::Vector2D<float> *_velocity = new PVector2D::Vector2D<float>(0.0,0.0);

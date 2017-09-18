@@ -15,6 +15,7 @@
 #include "Scene.hpp"
 #include "GameObject.hpp"
 #include "HitBox.hpp"
+#include "Camera.hpp"
 
 namespace PGame {
     class PrimitiveRect: public GameObject {
@@ -24,7 +25,7 @@ namespace PGame {
         PrimitiveRect(std::string, SDL_Rect*, Scene*);
         void setColor(SDL_Color*);
         void setRect(SDL_Rect*);
-        void render(void);
+        void render(Camera*);
         // PrimitiveRect and Sprite could theoretically
         // descend from the same Parent class (Collidable or something)
         // just for the hitbox members and some kind of overridable

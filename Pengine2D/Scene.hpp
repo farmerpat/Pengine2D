@@ -18,11 +18,11 @@
 #include <SDL2_image/SDL_image.h>
 #include <SDL2_mixer/SDL_mixer.h>
 #include "GameObject.hpp"
-#include "Camera.hpp"
 
 namespace PGame {
     class Game;
     class GameObject;
+    class Camera;
 
     class Scene {
     public:
@@ -38,6 +38,8 @@ namespace PGame {
         void move(double);
         void resolveCollisions(void);
         void applyDragAndGravity(double);
+        void setCamera(Camera*);
+        Camera *getCamera(void);
         // ?
         // the idea would be that
         // Game loads the

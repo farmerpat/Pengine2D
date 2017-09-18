@@ -65,14 +65,23 @@ namespace PGame {
         this->setHitBox(hb);
     }
 
-    void Sprite::render (void) {
-        this->_texture.render(this->getPos().getX(), this->getPos().getY());
+    void Sprite::render (Camera *cam=NULL) {
+        int camOffsetX = 0;
+        int camOffsetY = 0;
+
+        if (cam != NULL) {
+            camOffsetX = cam->getPos().getX();
+            camOffsetY = cam->getPos().getY();
+        }
+
+        this->_texture.render(this->getPos().getX() - camOffsetX, this->getPos().getY() - camOffsetY);
 
         if (this->getShowHitBox() && this->getHitBox() != NULL) {
             SDL_Renderer *renderer = this->getTexture().getTargetRenderer();
 
             if (renderer != NULL) {
                 SDL_Color *hbColor = this->getHitBox()->getColor();
+                SDL_Rect *hb = this->getHitBox()->getRect();
 
                 if (hbColor == NULL) {
                     hbColor = new SDL_Color;
@@ -82,8 +91,11 @@ namespace PGame {
                     hbColor->a = 0xff;
                 }
 
+                hb->x -= camOffsetX;
+                hb->y -= camOffsetY;
+
                 SDL_SetRenderDrawColor(renderer, hbColor->r, hbColor->g, hbColor->b, hbColor->a);
-                SDL_RenderDrawRect(renderer, this->getHitBox()->getRect());
+                SDL_RenderDrawRect(renderer, hb);
             }
         }
     }
