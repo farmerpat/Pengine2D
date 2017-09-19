@@ -19,11 +19,12 @@
 #include <SDL2_mixer/SDL_mixer.h>
 #include "Scene.hpp"
 #include "Vector2D.hpp"
+#include "Camera.hpp"
 
 namespace PGame {
     class Scene;
     class HitBox;
-    class Camera;
+    //class Camera;
 
     class GameObject {
     public:

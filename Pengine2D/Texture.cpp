@@ -44,7 +44,8 @@ namespace PTexture {
             renderQuad.h = clip->h;
         }
 
-        // clip is source rect, renderQuad is destination
+        // clip is rect selection from _mTexture
+        // renderQuad is rect destination on _targetRenderer
         SDL_RenderCopy(this->_targetRenderer, this->_mTexture, clip, &renderQuad);
     }
 

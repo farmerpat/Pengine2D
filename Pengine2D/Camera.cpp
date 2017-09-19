@@ -13,13 +13,32 @@ namespace PGame {
         this->_viewport = new SDL_Rect();
     }
 
-    Camera::Camera (int w, int h) : GameObject() {
+    //Camera::Camera (int w, int h) : GameObject() {
+    Camera::Camera (int w, int h) {
+        this->_position.setX(0.0f);
+        this->_position.setY(0.0f);
         this->_viewport = new SDL_Rect();
         this->_viewport->x = this->getPos().getX();
         this->_viewport->y = this->getPos().getY();
         this->_viewport->w = w;
         this->_viewport->h = h;
 
+    }
+
+    PVector2D::Vector2D<float> Camera::getPos () {
+        return this->_position;
+    }
+
+    void Camera::setPos (PVector2D::Vector2D<float> newVec) {
+        this->_position = newVec;
+    }
+
+    void Camera::setXPos (float x) {
+        this->_position.setX(x);
+    }
+
+    void Camera::setYPos (float y) {
+        this->_position.setY(y);
     }
 
     SDL_Rect *Camera::getViewPort (void) {

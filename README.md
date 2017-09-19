@@ -22,11 +22,13 @@ Short\-term TODO
 ===============
 
 * add a render method to HitBox and use it in PrimitiveRect and Sprite
-* control frame rate
+* control frame rate?
 * create GameObject subclass for Background
 * create GameObject subclass Sprites
 * create GameObject subclass Hero
 * move hero according to input
+* refactor GameObject and Camera to be descendants of a Positionable class
+* in Scene, class Game is declared in .hpp and Game.hpp is included in .cpp. can this be done elsewhere too?
 
 Long\-term TODO
 ===============

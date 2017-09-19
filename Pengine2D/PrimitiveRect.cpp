@@ -86,8 +86,19 @@ namespace PGame {
                         hbColor->a = 0xff;
                     }
 
+                    SDL_Rect *hitBoxOffsetRect = new SDL_Rect();
+
+                    hitBoxOffsetRect->x = this->_rect->x;
+                    hitBoxOffsetRect->y = this->_rect->y;
+                    hitBoxOffsetRect->w = this->_rect->w;
+                    hitBoxOffsetRect->h = this->_rect->h;
+
+                    hitBoxOffsetRect->x -= camOffsetX;
+                    hitBoxOffsetRect->y -= camOffsetY;
+
                     SDL_SetRenderDrawColor(r, hbColor->r, hbColor->g, hbColor->b, hbColor->a);
-                    SDL_RenderDrawRect(r, this->getHitBox()->getRect());
+                    //SDL_RenderDrawRect(r, this->getHitBox()->getRect());
+                    SDL_RenderDrawRect(r, hitBoxOffsetRect);
                 }
             }
         }

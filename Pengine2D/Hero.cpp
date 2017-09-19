@@ -286,6 +286,9 @@ namespace PGame {
 
     void Hero::move (double dt) {
         Sprite::move(dt);
+        int camTargetX = (int)this->getPos().getX();
+        int camTargetY = (int)this->getPos().getY();
 
+        this->getParentScene()->centerCameraAround(camTargetX, camTargetY);
     }
 }

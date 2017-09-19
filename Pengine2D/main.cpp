@@ -17,9 +17,9 @@
 using namespace PGame;
 
 int main(int argc, const char * argv[]) {
-    Game g = Game("Example Game");
+    Game *g = new Game("Example Game");
 
-    if (g.init()) {
+    if (g->init()) {
         //g.loadScene(g.getActiveScene());
         //g.launchActiveSceneInGameLoop();
         // or g.launchActiveSceneGameLoop();
@@ -28,13 +28,16 @@ int main(int argc, const char * argv[]) {
         // that deals with changing scenes at the appropriate time,
         // updating UI, etc
 
-        ExampleScene scene = ExampleScene(&g);
+        //ExampleScene scene = ExampleScene(&g);
+        // next make the texture width and height larger than screen's
+        // and start moving the camera to follow Hero
+        //ExampleScene scene = ExampleScene(g, g->getScreenWidth(), g->getScreenHeight());
+        ExampleScene scene = ExampleScene(g, 1024, 768);
         scene.init();
 
-        g.addScene(&scene);
-        g.run();
+        g->addScene(&scene);
+        g->run();
 
-        //SDL_Delay(10000);
         //g.destroy();
     }
 

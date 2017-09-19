@@ -16,16 +16,17 @@
 
 namespace PGame {
     ExampleScene::ExampleScene() {}
-    // call the parent constructor
     ExampleScene::ExampleScene (Game *g) : Scene (g) { }
+    ExampleScene::ExampleScene (Game *g, int w, int h) : Scene (g, w, h) { }
 
     void ExampleScene::init (void) {
-        Camera *camera = new Camera(400, 300);
+        // actually get these values from Game
+        Camera *camera = new Camera(640, 480);
         this->setCamera(camera);
 
         Hero *hero = new Hero("example_sprite", "test_img/slug_right.png", this);
 
-        hero->setPos(PVector2D::Vector2D<float>(50.0, 200.0));
+        hero->setPos(PVector2D::Vector2D<float>(100.0, 140.0));
         hero->initHitBox(32.0, 32.0);
         hero->setShowHitBox();
 
@@ -38,7 +39,7 @@ namespace PGame {
         SDL_Rect *platformRect = new SDL_Rect();
         platformRect->x = 100;
         platformRect->y = 200;
-        platformRect->w = 400;
+        platformRect->w = 824;
         platformRect->h = 30;
 
         SDL_Color *platformColor = new SDL_Color();

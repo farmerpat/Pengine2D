@@ -16,6 +16,21 @@ namespace  PGame {
         this->_parentGame = g;
     }
 
+    Scene::Scene (Game *g, int w, int h) {
+        this->_parentGame = g;
+        this->_sceneTexture = SDL_CreateTexture(
+            this->_parentGame->getWindowRenderer(),
+            // NOTE: this will change depending on endianness of machine. might break on different boxes
+            SDL_PIXELFORMAT_RGBA32,
+            SDL_TEXTUREACCESS_TARGET,
+            w,
+            h
+
+        );
+
+        // we could really init the camera in here
+    }
+
     Scene::~Scene () {
         this->destroy();
     }
@@ -51,8 +66,8 @@ namespace  PGame {
 
     void Scene::render (void) {
         // allow a bg color
-        SDL_SetRenderDrawColor(this->_parentGame->getWindowRenderer(), 0xa5, 0xc7, 0xff, 0xff);
-        SDL_RenderClear(this->_parentGame->getWindowRenderer());
+        //SDL_SetRenderDrawColor(this->_parentGame->getWindowRenderer(), 0xa5, 0xc7, 0xff, 0xff);
+        //SDL_RenderClear(this->_parentGame->getWindowRenderer());
 
         /*
          // you would think this belongs here,
@@ -61,7 +76,25 @@ namespace  PGame {
         SDL_RenderGetClipRect(renderer, previousCamViewPort);
 
         SDL_RenderSetClipRect(renderer, cam->getViewPort());
+
+         i think the windowRenderer will be the same size as the camera,
+         but the Scene renderer will be the size of the level then...
+
+        // clip is rect selection from _sceneTexture
+        // clip is camera
+         // renderQuad is null...or camera... idk
+         // if its null the texture is stretched to fill the whole thing...
+        // renderQuad is rect destination on _windowRenderer
+        SDL_RenderCopy(this->_windowRenderer, this->_sceneTexture, clip, &renderQuad);
+         //
+         // I THINK A SCENE NEEDS TO HAVE ITS OWN TEXTURE, WHICH IS THE SIZE OF THE LEVEL..
          */
+
+        // change all the GameObject renderer functions to get the parent scenes _sceneTexture
+        // and render to that shit
+        SDL_SetRenderTarget(this->_parentGame->getWindowRenderer(), this->_sceneTexture);
+        SDL_SetRenderDrawColor(this->_parentGame->getWindowRenderer(), 0xa5, 0xc7, 0xff, 0xff);
+        SDL_RenderClear(this->_parentGame->getWindowRenderer());
 
         for (std::vector<GameObject>::size_type i = 0; i < this->_gameObjects.size(); i++) {
             if (this->_gameObjects[i]->isRenderable()) {
@@ -70,6 +103,17 @@ namespace  PGame {
 
             }
         }
+
+        // do the thing with the camera clip noted above
+        // then
+        SDL_SetRenderTarget(this->_parentGame->getWindowRenderer(), NULL);
+
+        SDL_RenderCopy(
+            this->_parentGame->getWindowRenderer(),
+            this->_sceneTexture,
+            this->_camera->getViewPort(),
+            this->_camera->getViewPort() // NULL?
+        );
 
         SDL_RenderPresent(this->_parentGame->getWindowRenderer());
     }
@@ -175,8 +219,81 @@ namespace  PGame {
     void Scene::setCamera (Camera *c) {
         this->_camera = c;
     }
+
     Camera *Scene::getCamera (void) {
         return this->_camera;
+    }
+
+    // take w and h of game target too!
+    void Scene::centerCameraAround (int x, int y) {
+        PVector2D::Vector2D<float> newCameraPos = PVector2D::Vector2D<float>();
+        int texW;
+        int texH;
+        SDL_QueryTexture(this->_sceneTexture, NULL, NULL, &texW, &texH);
+        // ADD SANITY CHECK for texW and texH
+        //int camMaxX = this->getParentGame()->getScreenWidth() - this->getCamera()->getViewPort()->w;
+        int camMaxX = texW - this->getCamera()->getViewPort()->w;
+
+        int camMinX = 0;
+        //int camMaxY = this->getParentGame()->getScreenHeight() - this->getCamera()->getViewPort()->h;
+        int camMaxY = texH - this->getCamera()->getViewPort()->h;
+        int camMinY = 0;
+        int newCamX = x - (this->getCamera()->getViewPortWidth() / 2);
+        int newCamY = y -(this->getCamera()->getViewPortHeight() / 2);
+        //int newCamX = (this->getCamera()->getViewPortWidth() / 2) - x;
+        //int newCamY = (this->getCamera()->getViewPortHeight() / 2) - y;
+
+        if (newCamX < camMinX) {
+            newCamX = camMinX;
+
+        } else if (newCamX > camMaxX) {
+            newCamX = camMaxX;
+
+        }
+
+        if (newCamY < camMinY) {
+            newCamY = camMinY;
+
+        } else if (newCamY > camMaxY) {
+            newCamY = camMaxY;
+
+        }
+
+        newCameraPos.setX((float)newCamX);
+        newCameraPos.setY((float)newCamY);
+
+        this->getCamera()->setPos(newCameraPos);
+        this->getCamera()->updatePos();
+    }
+
+    void Scene::moveCamera (int x, int y) {
+        PVector2D::Vector2D<float> newCameraPos = PVector2D::Vector2D<float>();
+        int camMaxX = this->getParentGame()->getScreenWidth() - this->getCamera()->getViewPort()->w;
+        int camMinX = 0;
+        int camMaxY = this->getParentGame()->getScreenHeight() - this->getCamera()->getViewPort()->h;
+        int camMinY = 0;
+
+        if (x < camMinX) {
+            x = camMinX;
+
+        } else if (x > camMaxX) {
+            x = camMaxX;
+
+        }
+
+        if (y < camMinY) {
+            y = camMinY;
+
+        } else if (y > camMaxY) {
+            y = camMaxY;
+
+        }
+
+        newCameraPos.setX((float)x);
+        newCameraPos.setY((float)y);
+
+        this->getCamera()->setPos(newCameraPos);
+        this->getCamera()->updatePos();
     }
 
     void Scene::destroy (void) {

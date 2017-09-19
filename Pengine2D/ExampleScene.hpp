@@ -17,6 +17,7 @@ namespace PGame {
     public:
         ExampleScene();
         ExampleScene(Game*);
+        ExampleScene (Game*, int, int);
         void init(void);
 
     };

@@ -113,7 +113,7 @@ namespace PGame {
                 SDL_WINDOWPOS_UNDEFINED,
                 SDL_WINDOWPOS_UNDEFINED,
                 this->_SCREEN_WIDTH,
-                this->_SCREEN_WIDTH,
+                this->_SCREEN_HEIGHT,
                 SDL_WINDOW_SHOWN
 
             );

@@ -9,8 +9,6 @@
 #ifndef Scene_hpp
 #define Scene_hpp
 
-// we really don't want to be including these all over the place.
-// find out if they each need their own ifndef as well
 #include <stdio.h>
 #include <string>
 #include <vector>
@@ -18,16 +16,18 @@
 #include <SDL2_image/SDL_image.h>
 #include <SDL2_mixer/SDL_mixer.h>
 #include "GameObject.hpp"
+#include "Camera.hpp"
+#include "Vector2D.hpp"
 
 namespace PGame {
     class Game;
     class GameObject;
-    class Camera;
 
     class Scene {
     public:
         Scene();
         Scene(Game*);
+        Scene(Game*, int, int);
         ~Scene();
         void addGameObject(GameObject*);
         GameObject *getGameObjectByName(std::string);
@@ -40,6 +40,8 @@ namespace PGame {
         void applyDragAndGravity(double);
         void setCamera(Camera*);
         Camera *getCamera(void);
+        void centerCameraAround(int, int);
+        void moveCamera(int, int);
         // ?
         // the idea would be that
         // Game loads the
@@ -57,7 +59,6 @@ namespace PGame {
         // at the top of the game loop, Game could check and see if the current scene
         // is done, and under what conditions.. there could be a specific game over
         // scene (stored seperately from the vector of scenes) that it could load, for instance
-        void tick (SDL_Event*);
         virtual void init(void) = 0;
         virtual void inputController(const Uint8*);
 
@@ -71,6 +72,7 @@ namespace PGame {
         SDL_Surface *_surface = NULL;
         Game *_parentGame = NULL;
         Camera *_camera = NULL;
+        SDL_Texture *_sceneTexture = NULL;
 
     };
 }
