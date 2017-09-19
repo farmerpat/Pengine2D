@@ -65,54 +65,28 @@ namespace  PGame {
     }
 
     void Scene::render (void) {
-        // allow a bg color
-        //SDL_SetRenderDrawColor(this->_parentGame->getWindowRenderer(), 0xa5, 0xc7, 0xff, 0xff);
-        //SDL_RenderClear(this->_parentGame->getWindowRenderer());
-
-        /*
-         // you would think this belongs here,
-         // but im not sure that it does...
-        SDL_Rect *previousCamViewPort = new SDL_Rect();
-        SDL_RenderGetClipRect(renderer, previousCamViewPort);
-
-        SDL_RenderSetClipRect(renderer, cam->getViewPort());
-
-         i think the windowRenderer will be the same size as the camera,
-         but the Scene renderer will be the size of the level then...
-
-        // clip is rect selection from _sceneTexture
-        // clip is camera
-         // renderQuad is null...or camera... idk
-         // if its null the texture is stretched to fill the whole thing...
-        // renderQuad is rect destination on _windowRenderer
-        SDL_RenderCopy(this->_windowRenderer, this->_sceneTexture, clip, &renderQuad);
-         //
-         // I THINK A SCENE NEEDS TO HAVE ITS OWN TEXTURE, WHICH IS THE SIZE OF THE LEVEL..
-         */
-
-        // change all the GameObject renderer functions to get the parent scenes _sceneTexture
-        // and render to that shit
+        // make the window renderer render to Scene's texture, which is the size of
+        // the level.  the rect that is the camera, determines the portion of that
+        // textre that we end up rendering to the window below
         SDL_SetRenderTarget(this->_parentGame->getWindowRenderer(), this->_sceneTexture);
+        // allow a bg color or an image
         SDL_SetRenderDrawColor(this->_parentGame->getWindowRenderer(), 0xa5, 0xc7, 0xff, 0xff);
         SDL_RenderClear(this->_parentGame->getWindowRenderer());
 
         for (std::vector<GameObject>::size_type i = 0; i < this->_gameObjects.size(); i++) {
             if (this->_gameObjects[i]->isRenderable()) {
-                //this->_gameObjects[i]->render(NULL);
-                this->_gameObjects[i]->render(this->getCamera());
+                this->_gameObjects[i]->render();
 
             }
         }
 
-        // do the thing with the camera clip noted above
-        // then
         SDL_SetRenderTarget(this->_parentGame->getWindowRenderer(), NULL);
 
         SDL_RenderCopy(
             this->_parentGame->getWindowRenderer(),
             this->_sceneTexture,
             this->_camera->getViewPort(),
-            this->_camera->getViewPort() // NULL?
+            NULL
         );
 
         SDL_RenderPresent(this->_parentGame->getWindowRenderer());
@@ -231,17 +205,13 @@ namespace  PGame {
         int texH;
         SDL_QueryTexture(this->_sceneTexture, NULL, NULL, &texW, &texH);
         // ADD SANITY CHECK for texW and texH
-        //int camMaxX = this->getParentGame()->getScreenWidth() - this->getCamera()->getViewPort()->w;
         int camMaxX = texW - this->getCamera()->getViewPort()->w;
 
         int camMinX = 0;
-        //int camMaxY = this->getParentGame()->getScreenHeight() - this->getCamera()->getViewPort()->h;
         int camMaxY = texH - this->getCamera()->getViewPort()->h;
         int camMinY = 0;
         int newCamX = x - (this->getCamera()->getViewPortWidth() / 2);
         int newCamY = y -(this->getCamera()->getViewPortHeight() / 2);
-        //int newCamX = (this->getCamera()->getViewPortWidth() / 2) - x;
-        //int newCamY = (this->getCamera()->getViewPortHeight() / 2) - y;
 
         if (newCamX < camMinX) {
             newCamX = camMinX;

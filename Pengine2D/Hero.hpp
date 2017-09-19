@@ -27,7 +27,7 @@ namespace PGame {
         Hero(std::string, std::string);
         Hero(std::string, std::string, PGame::Scene*);
         void inputController(const Uint8*);
-        void render(Camera*);
+        void render(void);
         void move(double);
         bool isColliding(std::vector<GameObject*>, std::vector<GameObject>::size_type);
         void resolveCollisions(std::vector<GameObject*>, std::vector<GameObject>::size_type);
@@ -38,7 +38,7 @@ namespace PGame {
         void updateActiveTexture(void);
         int _initialSpeed = 40;
         int _speed = 20;
-        int _maxSpeed = 100;
+        int _maxSpeed = 200;
 
         PTexture::Texture *_non_animated_textures[2] = {NULL, NULL};
 

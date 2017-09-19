@@ -44,5 +44,4 @@ namespace PGame {
     };
 }
 
-
 #endif /* Camera_hpp */

@@ -33,7 +33,7 @@ namespace PGame {
         void move(double);
         bool initTexture(void);
         PTexture::Texture getTexture(void);
-        void render(Camera*);
+        void render(void);
 
     protected:
         PVector2D::Vector2D<float> *_velocity = new PVector2D::Vector2D<float>(0.0,0.0);

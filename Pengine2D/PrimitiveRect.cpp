@@ -39,16 +39,8 @@ namespace PGame {
         this->_color = c;
     }
 
-    void PrimitiveRect::render (Camera *cam=NULL) {
+    void PrimitiveRect::render (void) {
         if (this->getParentScene() != NULL) {
-            int camOffsetX = 0;
-            int camOffsetY = 0;
-
-            if (cam != NULL) {
-                camOffsetX = cam->getPos().getX();
-                camOffsetY = cam->getPos().getY();
-            }
-
             SDL_Renderer *r = this->getParentScene()->getParentGame()->getWindowRenderer();
 
             if (r != NULL) {
@@ -61,17 +53,7 @@ namespace PGame {
                         this->_color->a
                     );
 
-                    SDL_Rect *offsetRect = new SDL_Rect();
-
-                    offsetRect->x = this->_rect->x;
-                    offsetRect->y = this->_rect->y;
-                    offsetRect->w = this->_rect->w;
-                    offsetRect->h = this->_rect->h;
-
-                    offsetRect->x -= camOffsetX;
-                    offsetRect->y -= camOffsetY;
-
-                    SDL_RenderFillRect(r, offsetRect);
+                    SDL_RenderFillRect(r, this->_rect);
                 }
 
                 if (this->getShowHitBox() && this->getHitBox() != NULL) {
@@ -86,19 +68,8 @@ namespace PGame {
                         hbColor->a = 0xff;
                     }
 
-                    SDL_Rect *hitBoxOffsetRect = new SDL_Rect();
-
-                    hitBoxOffsetRect->x = this->_rect->x;
-                    hitBoxOffsetRect->y = this->_rect->y;
-                    hitBoxOffsetRect->w = this->_rect->w;
-                    hitBoxOffsetRect->h = this->_rect->h;
-
-                    hitBoxOffsetRect->x -= camOffsetX;
-                    hitBoxOffsetRect->y -= camOffsetY;
-
                     SDL_SetRenderDrawColor(r, hbColor->r, hbColor->g, hbColor->b, hbColor->a);
-                    //SDL_RenderDrawRect(r, this->getHitBox()->getRect());
-                    SDL_RenderDrawRect(r, hitBoxOffsetRect);
+                    SDL_RenderDrawRect(r, this->_rect);
                 }
             }
         }

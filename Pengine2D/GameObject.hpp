@@ -65,7 +65,7 @@ namespace PGame {
         virtual void resolveCollisions(std::vector<GameObject*> c, std::vector<GameObject>::size_type i) { }
         virtual void inputController(const Uint8*);
         virtual void move(double);
-        virtual void render(Camera*);
+        virtual void render(void);
         Scene *getParentScene(void);
 
     private:

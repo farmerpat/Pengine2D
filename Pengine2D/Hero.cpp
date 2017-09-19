@@ -235,29 +235,12 @@ namespace PGame {
         }
     }
 
-    void Hero::render (Camera *cam=NULL) {
-        int camOffsetX = 0;
-        int camOffsetY = 0;
-
+    void Hero::render (void) {
         this->updateActiveTexture();
 
-        if (cam != NULL) {
-            camOffsetX = cam->getPos().getX();
-            camOffsetY = cam->getPos().getY();
-        }
-
         if (this->_active_texture != NULL) {
-            if (cam != NULL) {
-                this->_active_texture->render(
-                    this->getPos().getX() - camOffsetX,
-                    this->getPos().getY() - camOffsetY//,
-                    //cam->getViewPort()
+            this->_active_texture->render(this->getPos().getX(), this->getPos().getY());
 
-                );
-            } else {
-                this->_active_texture->render(this->getPos().getX() - camOffsetX, this->getPos().getY() - camOffsetY);
-
-            }
         }
 
         if (this->getShowHitBox() && this->getHitBox() != NULL) {
@@ -265,7 +248,6 @@ namespace PGame {
 
             if (renderer != NULL) {
                 SDL_Color *hbColor = this->getHitBox()->getColor();
-                SDL_Rect *hb = this->getHitBox()->getRect();
 
                 if (hbColor == NULL) {
                     hbColor = new SDL_Color;
@@ -275,11 +257,8 @@ namespace PGame {
                     hbColor->a = 0xff;
                 }
 
-                hb->x -= camOffsetX;
-                hb->y -= camOffsetY;
-
                 SDL_SetRenderDrawColor(renderer, hbColor->r, hbColor->g, hbColor->b, hbColor->a);
-                SDL_RenderDrawRect(renderer, hb);
+                SDL_RenderDrawRect(renderer, this->getHitBox()->getRect());
             }
         }
     }

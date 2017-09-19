@@ -137,6 +137,6 @@ namespace  PGame {
 
     void GameObject::inputController(const Uint8 *keystates) {}
     void GameObject::move(double dt) {}
-    void GameObject::render(Camera *c=NULL) {}
+    void GameObject::render(void) {}
     GameObject::~GameObject () {}
 }

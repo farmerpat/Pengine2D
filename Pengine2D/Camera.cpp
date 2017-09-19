@@ -13,7 +13,6 @@ namespace PGame {
         this->_viewport = new SDL_Rect();
     }
 
-    //Camera::Camera (int w, int h) : GameObject() {
     Camera::Camera (int w, int h) {
         this->_position.setX(0.0f);
         this->_position.setY(0.0f);
