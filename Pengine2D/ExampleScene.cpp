@@ -26,9 +26,9 @@ namespace PGame {
 
         Hero *hero = new Hero("example_sprite", "test_img/slug_right.png", this);
 
-        hero->setPos(PVector2D::Vector2D<float>(100.0, 140.0));
+        hero->setPos(PVector2D::Vector2D<float>(200.0, 155.0));
         hero->initHitBox(32.0, 32.0);
-        hero->setShowHitBox();
+        //hero->setShowHitBox();
 
         hero->setTextureForState("test_img/slug_right.png", "non_animated_right");
         hero->setTextureForState("test_img/slug_left.png", "non_animated_left");
@@ -36,24 +36,84 @@ namespace PGame {
 
         this->addGameObject(hero);
 
-        SDL_Rect *platformRect = new SDL_Rect();
-        platformRect->x = 100;
-        platformRect->y = 200;
-        platformRect->w = 824;
-        platformRect->h = 30;
+        SDL_Rect *platformGroundRect = new SDL_Rect();
+        platformGroundRect->x = 100;
+        platformGroundRect->y = 320;
+        platformGroundRect->w = 850;
+        platformGroundRect->h = 30;
 
-        SDL_Color *platformColor = new SDL_Color();
-        platformColor->r = 0x84;
-        platformColor->r = 0x7e;
-        platformColor->r = 0x87;
-        platformColor->a = 0xff;
+        SDL_Color *platformGroundColor = new SDL_Color();
+        platformGroundColor->r = 0x84;
+        platformGroundColor->r = 0x7e;
+        platformGroundColor->r = 0x87;
+        platformGroundColor->a = 0xff;
 
-        PrimitiveRect *platform = new PrimitiveRect("platform0", platformRect, this);
-        platform->setColor(platformColor);
-        platform->initHitBox();
-        platform->setShowHitBox();
-        platform->setBodyType("static");
+        PrimitiveRect *platformGround = new PrimitiveRect("platform0", platformGroundRect, this);
+        platformGround->setColor(platformGroundColor);
+        platformGround->initHitBox();
+        //platformGround->setShowHitBox();
+        platformGround->setBodyType("static");
 
-        this->addGameObject(platform);
+        this->addGameObject(platformGround);
+
+        SDL_Rect *platformCeilRect = new SDL_Rect();
+        platformCeilRect->x = 100;
+        platformCeilRect->y = 40;
+        platformCeilRect->w = 850;
+        platformCeilRect->h = 30;
+
+        SDL_Color *platformCeilColor = new SDL_Color();
+        platformCeilColor->r = 0x84;
+        platformCeilColor->r = 0x7e;
+        platformCeilColor->r = 0x87;
+        platformCeilColor->a = 0xff;
+
+        PrimitiveRect *platformCeil = new PrimitiveRect("platform0", platformCeilRect, this);
+        platformCeil->setColor(platformGroundColor);
+        platformCeil->initHitBox();
+        //platformCeil->setShowHitBox();
+        platformCeil->setBodyType("static");
+
+        this->addGameObject(platformCeil);
+
+        SDL_Rect *platformLeftRect = new SDL_Rect();
+        platformLeftRect->x = 100;
+        platformLeftRect->y = 70;
+        platformLeftRect->w = 30;
+        platformLeftRect->h = 250;
+
+        SDL_Color *platformLeftColor = new SDL_Color();
+        platformLeftColor->r = 0x84;
+        platformLeftColor->r = 0x7e;
+        platformLeftColor->r = 0x87;
+        platformLeftColor->a = 0xff;
+
+        PrimitiveRect *platformLeft = new PrimitiveRect("platform1", platformLeftRect, this);
+        platformLeft->setColor(platformGroundColor);
+        platformLeft->initHitBox();
+        //platformLeft->setShowHitBox();
+        platformLeft->setBodyType("static");
+
+        this->addGameObject(platformLeft);
+
+        SDL_Rect *platformRightRect = new SDL_Rect();
+        platformRightRect->x = 920;
+        platformRightRect->y = 70;
+        platformRightRect->w = 30;
+        platformRightRect->h = 250;
+
+        SDL_Color *platformRightColor = new SDL_Color();
+        platformRightColor->r = 0x84;
+        platformRightColor->r = 0x7e;
+        platformRightColor->r = 0x87;
+        platformRightColor->a = 0xff;
+
+        PrimitiveRect *platformRight = new PrimitiveRect("platform2", platformRightRect, this);
+        platformRight->setColor(platformGroundColor);
+        platformRight->initHitBox();
+        //platformRight->setShowHitBox();
+        platformRight->setBodyType("static");
+
+        this->addGameObject(platformRight);
     }
 }

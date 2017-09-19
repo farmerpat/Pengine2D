@@ -113,6 +113,7 @@ namespace  PGame {
     }
 
     void Scene::applyDragAndGravity (double dt) {
+        // try making drag depenent on speed
         float xTolerance = 0.01f;
         float xDrag = 0.20f;
         // for testing for now.  downward drag only in game probably.
