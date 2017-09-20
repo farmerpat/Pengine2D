@@ -21,6 +21,8 @@ Notes
 Short\-term TODO
 ===============
 
+* force release of jump before pressing again
+* refaktor s.t. things are attached to game objects, not descended from them [eg](https://i.redd.it/0vcl6fyg8jmz.png)
 * add a render method to HitBox and use it in PrimitiveRect and Sprite
 * control frame rate?
 * create GameObject subclass for Background

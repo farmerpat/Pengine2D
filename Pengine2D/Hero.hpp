@@ -31,6 +31,11 @@ namespace PGame {
         void move(double);
         bool isColliding(std::vector<GameObject*>, std::vector<GameObject>::size_type);
         void resolveCollisions(std::vector<GameObject*>, std::vector<GameObject>::size_type);
+        // we might want some enemies to jump too.
+        // a descendant of Sprite that allows
+        // jumping and _isOnGroundSurface, etc
+        // might be a good idea
+        bool getIsOnGroundSurface(void);
 
         bool setTextureForState (std::string, std::string);
 
@@ -39,6 +44,10 @@ namespace PGame {
         int _initialSpeed = 40;
         int _speed = 20;
         int _maxSpeed = 200;
+        int _jumpInitialVelocity = 400;
+        bool _isJumping = true;
+        bool _isOnGroundSurface = false;
+        bool _jumpAvailable = true;
 
         PTexture::Texture *_non_animated_textures[2] = {NULL, NULL};
 

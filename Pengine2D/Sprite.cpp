@@ -39,6 +39,17 @@ namespace PGame {
         *(this->_velocity) = newVel;
     }
 
+    void Sprite::setGravityDirection (std::string dir) {
+        if (dir == "down" || dir == "up" || dir == "left" || dir == "right") {
+            this->_gravityDirection = dir;
+
+        }
+    }
+
+    std::string Sprite::getGravityDirection (void) {
+        return this->_gravityDirection;
+    }
+
     bool Sprite::initTexture () {
         bool success = false;
 

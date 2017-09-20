@@ -120,6 +120,7 @@ namespace  PGame {
         // the amount of drag applied will depend on whether or not jump is held
         float yDrag = 0.20f;
         float yTolerance = 0.01f;
+        float gravity = 10.3;
 
         // if there's no button being pressed, apply drag to the player,
         // so he eventually stops
@@ -180,13 +181,15 @@ namespace  PGame {
                         yVel += (yDrag * dt);
 
                     }
+                } else {
+                    //yVel = gravity;
+
                 }
 
-                this->_gameObjects[i]->getVelocity()->setY(yVel);
-                // apply gravity to y if velocity is negative
-                // this only makes sense to do when there is
-                // something to collide with under the player
+                if (yVel != 0) {
+                    this->_gameObjects[i]->getVelocity()->setY(yVel + gravity);
 
+                }
             }
         }
     }

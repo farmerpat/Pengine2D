@@ -20,6 +20,10 @@ namespace PGame {
         this->_active_texture = &this->_texture;
     }
 
+    bool Hero::getIsOnGroundSurface (void) {
+        return this->_isOnGroundSurface;
+    }
+
     bool Hero::setTextureForState (std::string path, std::string state) {
         bool success = true;
 
@@ -51,13 +55,15 @@ namespace PGame {
         if (keystates[SDL_SCANCODE_W]) {
             // TESTING ONLY. JUMP WILL HANDLE THIS
             // move up
-            newY = this->_velocity->getY() - this->_speed;
-            if (newY < -this->_maxSpeed) {
-                newY = -this->_maxSpeed;
+            if (! this->_isJumping && this->_isOnGroundSurface && this->_jumpAvailable) {
+                if (this->_gravityDirection == "down") {
+                    newY = -this->_jumpInitialVelocity;
+                    this->_isJumping = true;
+                    this->_isOnGroundSurface = false;
+                    this->_velocity->setY(newY);
 
+                }
             }
-
-            this->_velocity->setY(newY);
         } else if (keystates[SDL_SCANCODE_S]) {
             // TESTING ONLY. GRAVITY WILL HANDLE THIS
             // move down
@@ -171,8 +177,16 @@ namespace PGame {
                 // and only enaged with lock btn, excluding normal ground
                 // try set pos away from it first...
                 // doing this requires that we update the hitbox position too though...
+
+                // it might make sense to count the amount with which Hero is colliding
+                // with each of the collidingOthers, and acting according to that.
+                // something like this may help resolve the issue where he's colliding
+                // with two PrimitiveRects at the same time (one vertical, the other
+                // horizontal, with the horizontal one butted up against the top right
+                // of the horizontal one, and Hero is walking across the top of the
+                // upside-down L.
+
                 PVector2D::Vector2D<float> pos = this->getPos();
-                //this->setPos(pos);
 
                 HitBox *myHitBox = this->getHitBox();
                 HitBox *theirHitBox = collidingOthers[j]->getHitBox();
@@ -180,7 +194,6 @@ namespace PGame {
                 std::string collisionLocation = myHitBox->getCollisionLocation(theirHitBox);
 
                 if (collisionLocation == "right") {
-                    //printf("right\n");
                     currentVel->setX(0);
                     pos.setX(pos.getX() - 1.0);
                     this->setPos(pos);
@@ -188,7 +201,6 @@ namespace PGame {
                     this->getHitBox()->updatePosition();
 
                 } else if (collisionLocation == "left") {
-                    //printf("left\n");
                     currentVel->setX(0);
                     pos.setX(pos.getX() + 1.0);
                     this->setPos(pos);
@@ -196,15 +208,17 @@ namespace PGame {
                     this->getHitBox()->updatePosition();
 
                 } else if (collisionLocation == "bot") {
-                    //printf("bot\n");
-                    currentVel->setY(0);
-                    pos.setY(pos.getY() - 1.0);
-                    this->setPos(pos);
-                    this->getHitBox()->setPos(pos);
-                    this->getHitBox()->updatePosition();
+                    if (this->_gravityDirection == "down") {
+                        currentVel->setY(0);
+                        pos.setY(pos.getY() - 1.0);
+                        this->_isJumping = false;
+                        this->_isOnGroundSurface = true;
+                        this->setPos(pos);
+                        this->getHitBox()->setPos(pos);
+                        this->getHitBox()->updatePosition();
 
+                    }
                 } else if (collisionLocation == "top") {
-                    //printf("top\n");
                     currentVel->setY(0);
                     pos.setY(pos.getY() + 1.0);
                     this->setPos(pos);

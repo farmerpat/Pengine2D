@@ -19,6 +19,9 @@
 #include "Camera.hpp"
 
 namespace PGame {
+    // Sprite should be an optional member of GameObject
+    // instead of being a descendant of it
+    // such refaktoringz
     class Sprite: public GameObject {
     public:
         Sprite();
@@ -34,11 +37,14 @@ namespace PGame {
         bool initTexture(void);
         PTexture::Texture getTexture(void);
         void render(void);
+        std::string getGravityDirection(void);
+        void setGravityDirection(std::string);
 
     protected:
         PVector2D::Vector2D<float> *_velocity = new PVector2D::Vector2D<float>(0.0,0.0);
         std::string _texture_png_path = "";
         PTexture::Texture _texture;
+        std::string _gravityDirection = "down";
 
     };
 }
