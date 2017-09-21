@@ -60,11 +60,19 @@ namespace PGame {
                     newY = -this->_jumpInitialVelocity;
                     this->_isJumping = true;
                     this->_isOnGroundSurface = false;
+                    this->_jumpAvailable = false;
                     this->_velocity->setY(newY);
 
                 }
             }
-        } else if (keystates[SDL_SCANCODE_S]) {
+        } else {
+            if (this->_isOnGroundSurface) {
+                this->_jumpAvailable = true;
+
+            }
+        }
+
+        if (keystates[SDL_SCANCODE_S]) {
             // TESTING ONLY. GRAVITY WILL HANDLE THIS
             // move down
             newY = this->_velocity->getY() + this->_speed;
