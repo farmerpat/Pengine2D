@@ -64,6 +64,17 @@ namespace PGame {
                     this->_velocity->setY(newY);
 
                 }
+            } else if (this->_isJumping) {
+                if (this->_velocity->getY() > 0) {
+                    // this should be more subtle
+                    float jump_drag = 2.9f;
+                    float minFallSpeed = 0.5f;
+
+                    if ((this->_velocity->getY() - jump_drag) > minFallSpeed) {
+                        this->_velocity->setY((this->_velocity->getY() - jump_drag));
+
+                    }
+                }
             }
         } else {
             if (this->_isOnGroundSurface) {
