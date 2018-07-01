@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include <string>
+#include <iostream>
 #include "Vector2D.hpp"
 #include "Texture.hpp"
 #include "GameObject.hpp"
@@ -19,7 +20,10 @@ using namespace PGame;
 int main(int argc, const char * argv[]) {
     Game *g = new Game("Example Game");
 
+    std::cout << "got game\n";
+
     if (g->init()) {
+      std::cout << "got game init\n";
         //g.loadScene(g.getActiveScene());
         //g.launchActiveSceneInGameLoop();
         // or g.launchActiveSceneGameLoop();
@@ -33,9 +37,13 @@ int main(int argc, const char * argv[]) {
         // and start moving the camera to follow Hero
         //ExampleScene scene = ExampleScene(g, g->getScreenWidth(), g->getScreenHeight());
         ExampleScene scene = ExampleScene(g, 1024, 768);
+        std::cout << "got scene\n";
         scene.init();
+        std::cout << "got scene init\n";
 
+        std::cout << "adding scene to game\n";
         g->addScene(&scene);
+        std::cout << "running scene\n";
         g->run();
 
         //g.destroy();

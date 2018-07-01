@@ -14,7 +14,7 @@
  * http://lazyfoo.net/tutorials/SDL/
  */
 
-#include <SDL2/sdl.h>
+#include <SDL2/SDL.h>
 
 namespace PGame {
     class Timer {

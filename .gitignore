@@ -2,7 +2,7 @@
 
 #xcode
 xcuserdata/
-build/
+#build/
 
 # Prerequisites
 *.d

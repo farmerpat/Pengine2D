@@ -10,7 +10,7 @@
 #define Camera_hpp
 
 #include <stdio.h>
-#include <SDL2/sdl.h>
+#include <SDL2/SDL.h>
 //#include "GameObject.hpp"
 #include "Vector2D.hpp"
 

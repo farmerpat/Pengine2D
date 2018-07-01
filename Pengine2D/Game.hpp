@@ -12,9 +12,9 @@
 #include <stdio.h>
 #include <vector>
 #include <string>
-#include <SDL2/sdl.h>
-#include <SDL2_image/SDL_image.h>
-#include <SDL2_mixer/SDL_mixer.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
 #include "Scene.hpp"
 
 namespace PGame {
